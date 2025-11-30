@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.tek271</groupId>
@@ -30,7 +30,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>25</java.version>
+    <java.version>21</java.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
   </properties>
 
@@ -88,7 +88,9 @@
         <executions>
           <execution>
             <id>attach-sources</id>
-            <goals>  <goal>jar-no-fork</goal> </goals>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -106,7 +108,9 @@
         <executions>
           <execution>
             <id>attach-javadocs</id>
-            <goals> <goal>jar</goal> </goals>
+            <goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
@@ -156,5 +160,12 @@
       <artifactId>byte-buddy</artifactId>
       <version>1.18.2</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.5.0-jre</version>
+    </dependency>
+
   </dependencies>
 </project>
