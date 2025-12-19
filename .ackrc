@@ -1,0 +1,3 @@
+# configuration for ack: beyondgrep.com
+
+--ignore-dir=target
