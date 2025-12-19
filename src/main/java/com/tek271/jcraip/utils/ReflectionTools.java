@@ -1,6 +1,6 @@
 package com.tek271.jcraip.utils;
 
-import com.tek271.jcraip.Prompt;
+import com.tek271.jcraip.prompt.Prompt;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

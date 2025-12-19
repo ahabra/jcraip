@@ -1,4 +1,4 @@
-package com.tek271.jcraip;
+package com.tek271.jcraip.prompt;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;

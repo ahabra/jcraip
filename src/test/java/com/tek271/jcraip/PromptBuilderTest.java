@@ -1,5 +1,7 @@
 package com.tek271.jcraip;
 
+import com.tek271.jcraip.prompt.Prompt;
+import com.tek271.jcraip.prompt.PromptBuilder;
 import com.tek271.jcraip.utils.CollectionTools;
 import org.junit.jupiter.api.Test;
 

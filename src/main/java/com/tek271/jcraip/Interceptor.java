@@ -1,5 +1,6 @@
 package com.tek271.jcraip;
 
+import com.tek271.jcraip.prompt.PromptRunner;
 import net.bytebuddy.implementation.bind.annotation.*;
 
 import java.lang.reflect.Method;
