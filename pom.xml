@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.tek271</groupId>
-  <artifactId>jcrap</artifactId>
+  <artifactId>jcraip</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>a Java library to use AI tools as code</description>
-  <url>https://github.com/ahabra/jcrap</url>
+  <url>https://github.com/ahabra/jcraip</url>
 
   <!-- Required by sonatype maven central  -->
   <licenses>
@@ -36,9 +36,9 @@
 
   <!-- Required by sonatype maven central  -->
   <scm>
-    <connection>scm:git:git://github.com/ahabra/jcrap.git</connection>
-    <developerConnection>scm:git:ssh://github.com:ahabra/jcrap.git</developerConnection>
-    <url>https://github.com/ahabra/jcrap/tree/develop</url>
+    <connection>scm:git:git://github.com/ahabra/jcraip.git</connection>
+    <developerConnection>scm:git:ssh://github.com:ahabra/jcraip.git</developerConnection>
+    <url>https://github.com/ahabra/jcraip/tree/develop</url>
   </scm>
 
   <!-- Required by sonatype maven central  -->
@@ -54,7 +54,7 @@
   </distributionManagement>
 
   <build>
-    <finalName>jcrap</finalName>
+    <finalName>jcraip</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

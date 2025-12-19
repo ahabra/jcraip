@@ -1,4 +1,4 @@
-package com.tek271.jcrap.utils;
+package com.tek271.jcraip.utils;
 
 import java.util.Collection;
 

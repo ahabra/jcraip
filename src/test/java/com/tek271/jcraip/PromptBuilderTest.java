@@ -1,6 +1,6 @@
-package com.tek271.jcrap;
+package com.tek271.jcraip;
 
-import com.tek271.jcrap.utils.CollectionTools;
+import com.tek271.jcraip.utils.CollectionTools;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;

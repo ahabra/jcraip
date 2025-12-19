@@ -1,4 +1,4 @@
-package com.tek271.jcrap;
+package com.tek271.jcraip;
 
 import net.bytebuddy.implementation.bind.annotation.*;
 
