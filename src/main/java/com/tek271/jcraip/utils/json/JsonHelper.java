@@ -1,4 +1,4 @@
-package com.tek271.jcraip.utils;
+package com.tek271.jcraip.utils.json;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;

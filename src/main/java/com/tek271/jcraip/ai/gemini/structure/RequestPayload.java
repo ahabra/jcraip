@@ -1,6 +1,6 @@
 package com.tek271.jcraip.ai.gemini.structure;
 
-import com.tek271.jcraip.utils.JsonHelper;
+import com.tek271.jcraip.utils.json.JsonHelper;
 
 import java.util.Arrays;
 import java.util.List;

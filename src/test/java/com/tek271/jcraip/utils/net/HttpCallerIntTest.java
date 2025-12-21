@@ -1,6 +1,6 @@
 package com.tek271.jcraip.utils.net;
 
-import com.tek271.jcraip.utils.JsonHelper;
+import com.tek271.jcraip.utils.json.JsonHelper;
 import org.junit.jupiter.api.Test;
 
 import java.net.http.HttpResponse;

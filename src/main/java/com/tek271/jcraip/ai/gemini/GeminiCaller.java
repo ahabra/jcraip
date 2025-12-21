@@ -26,7 +26,7 @@ public class GeminiCaller {
     if (httpStatus != 200) {
       return new Answer(httpStatus, body);
     }
-    RespPayload respPayload = RespPayload.fromJson(body);
+    RespPayload respPayload = RespPayload.EMPTY.fromJson(body);
     String text = respPayload.getFirstAnswer();
     return new Answer(httpStatus, text);
   }
