@@ -16,7 +16,7 @@ public class PromptBuilder {
     String params = buildParameters(method.getParameters(), args);
     result.add(params);
     result.add(method.getDeclaredAnnotation(Prompt.class).value());
-    result.add(buildResultType(method.getReturnType()));
+    result.add(buildResultPrompt());
 
     return result.stream().filter(s -> !s.isEmpty()).toList();
   }
@@ -40,11 +40,15 @@ public class PromptBuilder {
     return val;
   }
 
-  private String buildResultType(Class<?> returnType) {
-    if (returnType == void.class) {
-      return "";
-    }
-    return "and return the result as " + returnType.getSimpleName();
+//  private String buildResultType(Class<?> returnType) {
+//    if (returnType == void.class) {
+//      return "";
+//    }
+//    return "and return the result as " + returnType.getSimpleName();
+//  }
+
+  private String buildResultPrompt() {
+    return "and return the result as result=";
   }
 
   public String buildPromptText(Method method, Object[] args) {

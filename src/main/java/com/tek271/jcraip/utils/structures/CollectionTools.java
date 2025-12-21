@@ -1,4 +1,4 @@
-package com.tek271.jcraip.utils;
+package com.tek271.jcraip.utils.structures;
 
 import java.util.Collection;
 

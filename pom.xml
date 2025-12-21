@@ -32,6 +32,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>21</java.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
+    <moshi-version>1.15.2</moshi-version>
   </properties>
 
   <!-- Required by sonatype maven central  -->
@@ -166,6 +167,21 @@
       <artifactId>guava</artifactId>
       <version>33.5.0-jre</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.squareup.moshi</groupId>
+      <artifactId>moshi</artifactId>
+      <version>${moshi-version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.squareup.moshi</groupId>
+      <artifactId>moshi-adapters</artifactId>
+      <version>${moshi-version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
 
   </dependencies>
 </project>
