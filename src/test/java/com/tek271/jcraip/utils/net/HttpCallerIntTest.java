@@ -1,10 +1,8 @@
 package com.tek271.jcraip.utils.net;
 
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
+import com.tek271.jcraip.utils.JsonHelper;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.net.http.HttpResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,21 +13,12 @@ class HttpCallerIntTest {
 
   public record Person (String name, int age) {
 
-    private static JsonAdapter<Person>  jsonAdapter() {
-      Moshi moshi = new Moshi.Builder().build();
-      return moshi.adapter(Person.class);
-    }
-
     String toJson() {
-      return jsonAdapter().toJson(this);
+      return JsonHelper.toJson(this);
     }
 
     static Person fromJson(String json) {
-      try {
-        return jsonAdapter().fromJson(json);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
+      return JsonHelper.fromJson(Person.class, json);
     }
   }
 

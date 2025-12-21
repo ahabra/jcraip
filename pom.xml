@@ -172,14 +172,12 @@
       <groupId>com.squareup.moshi</groupId>
       <artifactId>moshi</artifactId>
       <version>${moshi-version}</version>
-      <scope>runtime</scope>
     </dependency>
 
     <dependency>
       <groupId>com.squareup.moshi</groupId>
       <artifactId>moshi-adapters</artifactId>
       <version>${moshi-version}</version>
-      <scope>runtime</scope>
     </dependency>
 
 
