@@ -15,7 +15,7 @@ public class HttpCaller {
   }
 
   private String url;
-  private Method method;
+  private Method method = Method.GET;
   private final Headers headers = new Headers();
   private String body;
 
