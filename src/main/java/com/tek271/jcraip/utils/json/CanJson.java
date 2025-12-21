@@ -16,5 +16,4 @@ public interface CanJson<T> {
     return JsonHelper.fromJson(type, json);
   }
 
-
 }
