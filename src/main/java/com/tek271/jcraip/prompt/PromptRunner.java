@@ -18,15 +18,10 @@ public class PromptRunner {
     }
     String answerText = answer.getAnswerAfterPrefix("result=");
 
+    // TODO coerce answerText to the method return type
 
     return answerText;
   }
-
-//  static Object coerceType(String value, Class<?> type) {
-//    if (type == String.class) {
-//      return value;
-//    }
-//  }
 
 
 }
