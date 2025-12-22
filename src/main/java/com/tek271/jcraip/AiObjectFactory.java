@@ -7,7 +7,7 @@ import net.bytebuddy.matcher.ElementMatchers;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static com.tek271.jcraip.utils.ReflectionTools.*;
+import static com.tek271.jcraip.utils.reflect.ReflectionTools.*;
 
 public class AiObjectFactory {
 
