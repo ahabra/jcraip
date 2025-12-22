@@ -23,7 +23,8 @@ public class Interceptor {
                                    @Origin Method originalMethod,
                                    @SuperMethod Method superMethod,
                                    @AllArguments Object[] args) {
-      return PromptRunner.run(originalMethod, args);
+      PromptRunner promptRunner = new PromptRunner();
+      return promptRunner.run(originalMethod, args);
     }
   }
 

@@ -1,6 +1,7 @@
 package com.tek271.jcraip.ai.gemini;
 
 import com.tek271.jcraip.ai.gemini.structure.Answer;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static com.tek271.jcraip.ai.gemini.GeminiCaller.getGeminiApiKey;
@@ -10,6 +11,7 @@ class GeminiCallerIntTest {
   GeminiCaller sut =  new GeminiCaller();
 
   @Test
+  @Disabled("We do not want to run this all the time")
   void callingGeminiWithSimpleMathQuestion() {
     Answer answer = sut.call("what is the sum of 10 and 20 and return the result as result=");
     assertEquals(200, answer.httpStatus());

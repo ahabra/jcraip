@@ -40,13 +40,6 @@ public class PromptBuilder {
     return val;
   }
 
-//  private String buildResultType(Class<?> returnType) {
-//    if (returnType == void.class) {
-//      return "";
-//    }
-//    return "and return the result as " + returnType.getSimpleName();
-//  }
-
   private String buildResultPrompt() {
     return "and return the result as result=";
   }
