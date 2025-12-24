@@ -10,6 +10,8 @@ import net.bytebuddy.matcher.ElementMatchers;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import static com.tek271.jcraip.utils.reflect.Creator.createDynaInstance;
+import static com.tek271.jcraip.utils.reflect.Creator.subclass;
 import static com.tek271.jcraip.utils.reflect.ReflectionTools.*;
 
 public class AiObjectFactory {
@@ -40,7 +42,7 @@ public class AiObjectFactory {
           .intercept(MethodDelegation.to(Interceptor.TypeInterceptor.class));
     }
 
-    return createInstance(subclass);
+    return createDynaInstance(subclass);
   }
 
 }
