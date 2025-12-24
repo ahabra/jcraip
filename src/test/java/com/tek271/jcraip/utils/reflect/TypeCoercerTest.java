@@ -69,4 +69,5 @@ class TypeCoercerTest {
     assertEquals('b', sut.coerce("b", Character.class));
   }
 
+
 }

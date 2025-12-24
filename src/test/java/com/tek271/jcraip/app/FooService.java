@@ -1,0 +1,28 @@
+package com.tek271.jcraip.app;
+
+import com.tek271.jcraip.AiObjectFactory;
+import com.tek271.jcraip.prompt.Prompt;
+import org.apache.commons.lang3.NotImplementedException;
+
+public class FooService {
+
+  public static FooService create() {
+    return AiObjectFactory.createProxy(FooService.class);
+  }
+
+  @Prompt("Sum numbers from a to b")
+  public int sumFromTo(int a, int b) {
+    throw new NotImplementedException();
+  }
+
+  @Prompt("is it a palindrome")
+  public boolean isPalindrome(int x) {
+    throw new NotImplementedException();
+  }
+
+  @Prompt("find their standard deviation")
+  public double standardDeviation(double a, double b, double c, double d, double e, double f) {
+    throw new NotImplementedException();
+  }
+
+}

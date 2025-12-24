@@ -1,5 +1,7 @@
 package com.tek271.jcraip.utils.reflect;
 
+import java.util.Set;
+
 public class TypeCoercer {
 
   private interface EmptyValues {
@@ -9,6 +11,22 @@ public class TypeCoercer {
     Character CHAR = 0;
   }
 
+  private static final Set<Class<?>> COERCIBLE_TYPES = Set.of(
+    String.class,
+    boolean.class, Boolean.class,
+    char.class, Character.class,
+    byte.class, Byte.class,
+    short.class, Short.class,
+    int.class, Integer.class,
+    long.class, Long.class,
+    float.class, Float.class,
+    double.class, Double.class
+  );
+
+  public boolean isCoercibleType(Class<?> type) {
+    return COERCIBLE_TYPES.contains(type);
+  }
+
   @SuppressWarnings("unchecked")
   public <T> T coerce(String value, Class<T> type) {
     if (type == null) {
@@ -16,6 +34,9 @@ public class TypeCoercer {
     }
 
     if (value == null) {
+      return null;
+    }
+    if (!isCoercibleType(type)) {
       return null;
     }
 
