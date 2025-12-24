@@ -95,5 +95,9 @@ public class ReflectionTools {
     return method.isAnnotationPresent(Prompt.class);
   }
 
+  public static String simpleName(Method method) {
+    return method.getDeclaringClass().getSimpleName() + "." + method.getName();
+  }
+
 
 }

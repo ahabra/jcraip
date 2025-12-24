@@ -18,7 +18,8 @@ class BarInterfaceTest {
 
   @Test
   void noPromptMethod_willFail() {
-    assertThrows(NotImplementedException.class, () -> {sut.add_noPrompt(1, 2);});
+    NotImplementedException ex = assertThrows(NotImplementedException.class, () -> sut.add_noPrompt(1, 2));
+    System.out.println(ex.getMessage());
   }
 
   @Test

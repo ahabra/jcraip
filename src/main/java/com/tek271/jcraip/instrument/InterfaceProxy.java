@@ -16,7 +16,7 @@ public class InterfaceProxy {
     return (T) Proxy.newProxyInstance(classLoader, interfaces, this::invoke);
   }
 
-  Object invoke(Object proxy, Method method, Object[] args) {
+  private Object invoke(Object proxy, Method method, Object[] args) {
     if (!ReflectionTools.hasPrompt(method)) {
       return methodWithNoPrompt(proxy, method, args);
     }
@@ -31,7 +31,10 @@ public class InterfaceProxy {
       return ReflectionTools.invokeDefaultMethod(proxy, method, args);
     }
 
-    throw new NotImplementedException("Method " + method.getName() + " does not have a Prompt annotation");
+    String err = """
+      Method %s does not have a Prompt annotation or a defined implementation
+      """.formatted(ReflectionTools.simpleName(method));
+    throw new NotImplementedException(err);
   }
 
 
