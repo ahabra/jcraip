@@ -1,10 +1,13 @@
-package com.tek271.jcraip;
+package com.tek271.jcraip.instrument;
 
 import com.tek271.jcraip.prompt.PromptRunner;
 import net.bytebuddy.implementation.bind.annotation.*;
 
 import java.lang.reflect.Method;
 
+/**
+ * Intercept method calls for bytebuddy
+ */
 public class Interceptor {
 
   /**
@@ -23,8 +26,7 @@ public class Interceptor {
                                    @Origin Method originalMethod,
                                    @SuperMethod Method superMethod,
                                    @AllArguments Object[] args) {
-      PromptRunner promptRunner = new PromptRunner();
-      return promptRunner.run(originalMethod, args);
+      return PromptRunner.runAiMethod(originalMethod, args);
     }
   }
 

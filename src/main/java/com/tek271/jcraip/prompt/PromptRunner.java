@@ -22,10 +22,12 @@ public class PromptRunner {
     String answerText = answer.getAnswerAfterPrefix("result=");
 
     System.out.println(" A: " + answerText);
-    Object result = typeCoercer.coerce(answerText, method.getReturnType());
-
-    return result;
+    return typeCoercer.coerce(answerText, method.getReturnType());
   }
 
+  public static Object runAiMethod(Method method, Object[] args) {
+    PromptRunner promptRunner = new PromptRunner();
+    return promptRunner.run(method, args);
+  }
 
 }

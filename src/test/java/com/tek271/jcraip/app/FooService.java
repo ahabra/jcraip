@@ -7,7 +7,7 @@ import org.apache.commons.lang3.NotImplementedException;
 public class FooService {
 
   public static FooService create() {
-    return AiObjectFactory.createProxy(FooService.class);
+    return new AiObjectFactory().createProxy(FooService.class);
   }
 
   @Prompt("Sum numbers from a to b")
