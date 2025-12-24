@@ -26,6 +26,7 @@ public class Interceptor {
                                    @Origin Method originalMethod,
                                    @SuperMethod Method superMethod,
                                    @AllArguments Object[] args) {
+      System.out.println(originalMethod);
       return PromptRunner.runAiMethod(originalMethod, args);
     }
   }

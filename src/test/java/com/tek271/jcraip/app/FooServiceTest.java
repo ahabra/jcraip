@@ -25,4 +25,14 @@ class FooServiceTest {
     assertEquals(1.707, sut.standardDeviation(1, 2, 3, 4, 5, 6), 0.001);
   }
 
+  @Test
+  void noPrompt_willCallDefinedCode() {
+    assertEquals(3, sut.noPrompt("abc"));
+  }
+
+  @Test
+  void staticMethod_test() {
+    assertEquals(42, sut.staticMethod());
+  }
+
 }

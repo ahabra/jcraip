@@ -20,9 +20,18 @@ public class FooService {
     throw new NotImplementedException();
   }
 
-  @Prompt("find their standard deviation")
+  @Prompt("find their population standard deviation")
   public double standardDeviation(double a, double b, double c, double d, double e, double f) {
     throw new NotImplementedException();
+  }
+
+  public int noPrompt(String value) {
+    return value.length();
+  }
+
+  // Cannot change static method
+  public static int staticMethod() {
+    return 42;
   }
 
 }
