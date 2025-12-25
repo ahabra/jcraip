@@ -26,11 +26,12 @@ public class AiObjectFactory {
 
     DynamicType.Builder<T> subclass = subclass(targetClass);
     List<Method> methods = findListOfPromptMethods(targetClass);
+    Interceptor interceptor = new Interceptor();
 
     for (Method method : methods) {
       subclass = subclass
           .method(ElementMatchers.is(method))
-          .intercept(MethodDelegation.to(Interceptor.TypeInterceptor.class));
+          .intercept(MethodDelegation.to(interceptor));
     }
 
     return createDynaInstance(subclass);

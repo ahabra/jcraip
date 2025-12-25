@@ -10,8 +10,8 @@ class FooServiceTest {
   FooService sut = FooService.create();
 
   @Test
-  void sumFromTo_returnsCorrectValues() {
-    assertEquals(15, sut.sumFromTo(1, 5));
+  void sum_returnsCorrectValues() {
+    assertEquals(35, sut.sum(1, 4, 10, 20));
   }
 
   @Test

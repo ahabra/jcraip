@@ -10,8 +10,8 @@ public class FooService {
     return new AiObjectFactory().createProxy(FooService.class);
   }
 
-  @Prompt("Sum numbers from a to b")
-  public int sumFromTo(int a, int b) {
+  @Prompt("Sum them all")
+  public int sum(int a, int b, int c, int d) {
     throw new NotImplementedException();
   }
 
