@@ -1,6 +1,7 @@
 package com.tek271.jcraip.instrument;
 
 import com.tek271.jcraip.prompt.PromptRunner;
+import com.tek271.jcraip.prompt.Prompter;
 import com.tek271.jcraip.utils.reflect.ReflectionTools;
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -9,6 +10,7 @@ import java.lang.reflect.Proxy;
 
 /** Proxy for interfaces */
 public class InterfaceProxy {
+  private Prompter prompter = new PromptRunner();
 
   @SuppressWarnings("unchecked")
   public <T> T createProxy(Class<T> targetInterface) {
@@ -21,7 +23,7 @@ public class InterfaceProxy {
     if (!ReflectionTools.hasPrompt(method)) {
       return methodWithNoPrompt(proxy, method, args);
     }
-    return PromptRunner.runAiMethod(method, args);
+    return prompter.run(method, args);
   }
 
   private Object methodWithNoPrompt(Object proxy, Method method, Object[] args) {
@@ -38,5 +40,8 @@ public class InterfaceProxy {
     throw new NotImplementedException(err);
   }
 
+  public void setPrompter(Prompter prompter) {
+    this.prompter = prompter;
+  }
 
 }

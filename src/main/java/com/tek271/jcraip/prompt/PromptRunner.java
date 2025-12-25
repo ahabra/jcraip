@@ -6,10 +6,11 @@ import com.tek271.jcraip.utils.reflect.TypeCoercer;
 
 import java.lang.reflect.Method;
 
-public class PromptRunner {
+public class PromptRunner implements Prompter {
   GeminiCaller geminiCaller =  new GeminiCaller();
   TypeCoercer typeCoercer = new TypeCoercer();
 
+  @Override
   public Object run(Method method, Object[] args) {
     PromptBuilder promptBuilder = new PromptBuilder();
     String prompt = promptBuilder.buildPromptText(method, args);
@@ -25,9 +26,5 @@ public class PromptRunner {
     return typeCoercer.coerce(answerText, method.getReturnType());
   }
 
-  public static Object runAiMethod(Method method, Object[] args) {
-    PromptRunner promptRunner = new PromptRunner();
-    return promptRunner.run(method, args);
-  }
 
 }
