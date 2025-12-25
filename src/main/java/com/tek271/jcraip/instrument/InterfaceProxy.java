@@ -7,6 +7,8 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+import static com.tek271.jcraip.utils.reflect.ReflectionTools.simpleName;
+
 /** Proxy for interfaces */
 public class InterfaceProxy {
   private final PromptRunner promptRunner;
@@ -24,12 +26,12 @@ public class InterfaceProxy {
 
   private Object invoke(Object proxy, Method method, Object[] args) {
     if (!ReflectionTools.hasPrompt(method)) {
-      return methodWithNoPrompt(proxy, method, args);
+      return callMethodWithNoPrompt(proxy, method, args);
     }
     return promptRunner.run(method, args);
   }
 
-  private Object methodWithNoPrompt(Object proxy, Method method, Object[] args) {
+  private Object callMethodWithNoPrompt(Object proxy, Method method, Object[] args) {
     if (ReflectionTools.isStatic(method)) {
       return ReflectionTools.invokeMethod(null, method, args);
     }
@@ -37,9 +39,7 @@ public class InterfaceProxy {
       return ReflectionTools.invokeDefaultMethod(proxy, method, args);
     }
 
-    String err = """
-      Method %s does not have a Prompt annotation or a defined implementation
-      """.formatted(ReflectionTools.simpleName(method));
+    String err = "Method %s does not have a Prompt annotation or a defined implementation".formatted(simpleName(method));
     throw new NotImplementedException(err);
   }
 
