@@ -1,30 +1,7 @@
 package com.tek271.jcraip.prompt;
 
-import com.tek271.jcraip.ai.gemini.GeminiCaller;
-import com.tek271.jcraip.ai.gemini.structure.Answer;
-import com.tek271.jcraip.utils.reflect.TypeCoercer;
-
 import java.lang.reflect.Method;
 
-public class PromptRunner implements Prompter {
-  GeminiCaller geminiCaller =  new GeminiCaller();
-  TypeCoercer typeCoercer = new TypeCoercer();
-
-  @Override
-  public Object run(Method method, Object[] args) {
-    PromptBuilder promptBuilder = new PromptBuilder();
-    String prompt = promptBuilder.buildPromptText(method, args);
-    System.out.println("Q: " +  prompt);
-
-    Answer answer = geminiCaller.call(prompt);
-    if (answer.httpStatus() != 200) {
-      throw new RuntimeException(answer.toString());
-    }
-    String answerText = answer.getAnswerAfterPrefix("result=");
-
-    System.out.println(" A: " + answerText);
-    return typeCoercer.coerce(answerText, method.getReturnType());
-  }
-
-
+public interface PromptRunner {
+  Object run(Method method, Object[] args);
 }

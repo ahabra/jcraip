@@ -2,8 +2,8 @@ package com.tek271.jcraip;
 
 import com.tek271.jcraip.instrument.Interceptor;
 import com.tek271.jcraip.instrument.InterfaceProxy;
+import com.tek271.jcraip.prompt.PromptRunnerImpl;
 import com.tek271.jcraip.prompt.PromptRunner;
-import com.tek271.jcraip.prompt.Prompter;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.matcher.ElementMatchers;
@@ -19,19 +19,11 @@ public class AiObjectFactory {
   private final InterfaceProxy interfaceProxy =  new InterfaceProxy();
   private final Interceptor interceptor = new Interceptor();
 
-  private void setPromptRunner(Prompter prompter) {
-    if (prompter == null) {
-      prompter = new PromptRunner();
-    }
-    interceptor.setPrompter(prompter);
-    interfaceProxy.setPrompter(prompter);
-  }
-
-  public <T> T createProxy(Class<T> targetClass, Prompter prompter) {
+  public <T> T createProxy(Class<T> targetClass, PromptRunner promptRunner) {
     if (targetClass == null) {
       throw new NullPointerException("jcraip cannot proxy a null object");
     }
-    setPromptRunner(prompter);
+    setPromptRunner(promptRunner);
     if (targetClass.isInterface()) {
       return interfaceProxy.createProxy(targetClass);
     }
@@ -50,6 +42,14 @@ public class AiObjectFactory {
 
   public <T> T createProxy(Class<T> targetClass) {
     return createProxy(targetClass, null);
+  }
+
+  private void setPromptRunner(PromptRunner promptRunner) {
+    if (promptRunner == null) {
+      promptRunner = new PromptRunnerImpl();
+    }
+    interceptor.setPromptRunner(promptRunner);
+    interfaceProxy.setPromptRunner(promptRunner);
   }
 
 }

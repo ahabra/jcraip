@@ -1,7 +1,7 @@
 package com.tek271.jcraip.instrument;
 
+import com.tek271.jcraip.prompt.PromptRunnerImpl;
 import com.tek271.jcraip.prompt.PromptRunner;
-import com.tek271.jcraip.prompt.Prompter;
 import net.bytebuddy.implementation.bind.annotation.*;
 
 import java.lang.reflect.Method;
@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * Intercept method calls for bytebuddy
  */
 public class Interceptor {
-  private Prompter prompter = new PromptRunner();
+  private PromptRunner promptRunner = new PromptRunnerImpl();
 
   /**
    * @param originalMethod The original method that is getting proxied
@@ -21,11 +21,11 @@ public class Interceptor {
   public Object intercept(@Origin Method originalMethod,
                           @AllArguments Object[] args) {
     System.out.println(originalMethod);
-    return prompter.run(originalMethod, args);
+    return promptRunner.run(originalMethod, args);
   }
 
-  public void setPrompter(Prompter prompter) {
-    this.prompter = prompter;
+  public void setPromptRunner(PromptRunner promptRunner) {
+    this.promptRunner = promptRunner;
   }
 
 
