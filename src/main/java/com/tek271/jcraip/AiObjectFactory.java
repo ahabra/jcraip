@@ -16,21 +16,29 @@ import static com.tek271.jcraip.utils.reflect.Creator.subclass;
 import static com.tek271.jcraip.utils.reflect.ReflectionTools.*;
 
 public class AiObjectFactory {
-  private final InterfaceProxy interfaceProxy =  new InterfaceProxy();
-  private final Interceptor interceptor = new Interceptor();
+  private final PromptRunner promptRunner;
 
-  public <T> T createProxy(Class<T> targetClass, PromptRunner promptRunner) {
+  public AiObjectFactory(PromptRunner promptRunner) {
+    this.promptRunner = promptRunner;
+  }
+
+  public AiObjectFactory() {
+    this(new PromptRunnerImpl());
+  }
+
+  public <T> T createProxy(Class<T> targetClass) {
     if (targetClass == null) {
       throw new NullPointerException("jcraip cannot proxy a null object");
     }
-    setPromptRunner(promptRunner);
     if (targetClass.isInterface()) {
+      InterfaceProxy interfaceProxy =  new InterfaceProxy(this.promptRunner);
       return interfaceProxy.createProxy(targetClass);
     }
 
     DynamicType.Builder<T> subclass = subclass(targetClass);
     List<Method> methods = findListOfPromptMethods(targetClass);
 
+    Interceptor interceptor = new Interceptor(this.promptRunner);
     for (Method method : methods) {
       subclass = subclass
           .method(ElementMatchers.is(method))
@@ -40,16 +48,5 @@ public class AiObjectFactory {
     return createDynaInstance(subclass);
   }
 
-  public <T> T createProxy(Class<T> targetClass) {
-    return createProxy(targetClass, null);
-  }
-
-  private void setPromptRunner(PromptRunner promptRunner) {
-    if (promptRunner == null) {
-      promptRunner = new PromptRunnerImpl();
-    }
-    interceptor.setPromptRunner(promptRunner);
-    interfaceProxy.setPromptRunner(promptRunner);
-  }
 
 }

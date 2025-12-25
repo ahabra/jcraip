@@ -1,6 +1,5 @@
 package com.tek271.jcraip.instrument;
 
-import com.tek271.jcraip.prompt.PromptRunnerImpl;
 import com.tek271.jcraip.prompt.PromptRunner;
 import com.tek271.jcraip.utils.reflect.ReflectionTools;
 import org.apache.commons.lang3.NotImplementedException;
@@ -10,7 +9,11 @@ import java.lang.reflect.Proxy;
 
 /** Proxy for interfaces */
 public class InterfaceProxy {
-  private PromptRunner promptRunner = new PromptRunnerImpl();
+  private final PromptRunner promptRunner;
+
+  public InterfaceProxy(PromptRunner promptRunner) {
+    this.promptRunner = promptRunner;
+  }
 
   @SuppressWarnings("unchecked")
   public <T> T createProxy(Class<T> targetInterface) {
@@ -38,10 +41,6 @@ public class InterfaceProxy {
       Method %s does not have a Prompt annotation or a defined implementation
       """.formatted(ReflectionTools.simpleName(method));
     throw new NotImplementedException(err);
-  }
-
-  public void setPromptRunner(PromptRunner promptRunner) {
-    this.promptRunner = promptRunner;
   }
 
 }
