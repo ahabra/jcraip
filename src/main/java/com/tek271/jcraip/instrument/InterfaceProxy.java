@@ -7,6 +7,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/** Proxy for interfaces */
 public class InterfaceProxy {
 
   @SuppressWarnings("unchecked")
