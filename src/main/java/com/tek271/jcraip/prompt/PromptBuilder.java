@@ -1,5 +1,7 @@
 package com.tek271.jcraip.prompt;
 
+import com.tek271.jcraip.ai.base.AiQuestion;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
@@ -44,8 +46,9 @@ public class PromptBuilder {
     return "and return the result as result=";
   }
 
-  public String buildPromptText(Method method, Object[] args) {
-    return String.join("\n", buildPrompt(method, args));
+  public AiQuestion buildAiQuestion(Method method, Object[] args) {
+    String text = String.join("\n", buildPrompt(method, args));
+    return new AiQuestion(text);
   }
 
 

@@ -1,23 +1,26 @@
 package com.tek271.jcraip.ai.gemini;
 
+import com.tek271.jcraip.ai.base.AiAnswer;
+import com.tek271.jcraip.ai.base.AiCaller;
+import com.tek271.jcraip.ai.base.AiQuestion;
 import com.tek271.jcraip.ai.gemini.structure.RequestPayload;
 import com.tek271.jcraip.ai.gemini.structure.RespPayload;
-import com.tek271.jcraip.ai.gemini.structure.Answer;
 import com.tek271.jcraip.utils.net.HttpCaller;
 
 import java.net.http.HttpResponse;
 
-public class GeminiCaller {
+public class GeminiCaller implements AiCaller {
   private static final String URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
   private static final String API_KEY_NAME = "GEMINI_API_KEY";
 
   /**
    * Call gemini using the env. variable GEMINI_API_KEY as the api key
-   * @param prompt the question to ask
+   * @param aiQuestion the question to ask
    */
-  public Answer call(String prompt) {
+  @Override
+  public AiAnswer call(AiQuestion aiQuestion) {
     String apiKey = getGeminiApiKey(API_KEY_NAME);
-    RequestPayload payload = new RequestPayload(prompt);
+    RequestPayload payload = new RequestPayload(aiQuestion.text());
     HttpResponse<String> response = new HttpCaller()
       .url(URL)
       .methodPost()
@@ -29,10 +32,10 @@ public class GeminiCaller {
     int httpStatus = response.statusCode();
     String body = response.body();
     if (httpStatus != 200) {
-      return new Answer(httpStatus, body);
+      return new AiAnswer(httpStatus, body);
     }
     RespPayload respPayload = RespPayload.EMPTY.fromJson(body);
-    return new Answer(httpStatus, respPayload.getFirstAnswer());
+    return new AiAnswer(httpStatus, respPayload.getFirstAnswer());
   }
 
 
