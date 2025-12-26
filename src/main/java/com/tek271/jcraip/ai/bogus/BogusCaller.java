@@ -3,13 +3,20 @@ package com.tek271.jcraip.ai.bogus;
 import com.tek271.jcraip.ai.base.AiAnswer;
 import com.tek271.jcraip.ai.base.AiCaller;
 import com.tek271.jcraip.ai.base.AiQuestion;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Strings;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+/**
+ * A bogus AI caller that can be trained to answer test questions
+ */
 public class BogusCaller implements AiCaller {
+  private static final Set<String> STOP_WORDS_SET = Set.of("them", "then", "the", "and", "as", "is", "are", ",");
+  private static final String STOP_WORDS = StringUtils.join(STOP_WORDS_SET, "|");
+
   private final Map<String, AiAnswer> db =  new HashMap<>();
 
   @Override
@@ -27,12 +34,7 @@ public class BogusCaller implements AiCaller {
   private static String normalize(String text) {
     text = StringUtils.deleteWhitespace(text);
     text = text.toLowerCase();
-    text = Strings.CI.remove(text, "the");
-    text = Strings.CI.remove(text, "and");
-    text = Strings.CI.remove(text, "as");
-    text = Strings.CI.remove(text, "is");
-    text = Strings.CI.remove(text, "are");
-    return text;
+    return RegExUtils.removeAll(text, STOP_WORDS);
   }
 
 }

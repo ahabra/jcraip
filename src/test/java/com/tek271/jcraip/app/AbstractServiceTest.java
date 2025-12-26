@@ -11,13 +11,13 @@ class AbstractServiceTest {
 
   @Test
   void multiply_abstract_test() {
-    aiCaller.ifQthenA("Given the arguments 9 and 10 multiply them", "90");
+    aiCaller.ifQthenA("Given the arguments 9 and 10, multiply them", "90");
     assertEquals(90, sut.multiply_abstract(9, 10));
   }
 
   @Test
   void multiply_real_test() {
-    aiCaller.ifQthenA("Given the arguments 9 and 10 multiply them", "90");
+    aiCaller.ifQthenA("Given the arguments 9 and 10, multiply them", "90");
     assertEquals(90, sut.multiply_real(9, 10));
   }
 
