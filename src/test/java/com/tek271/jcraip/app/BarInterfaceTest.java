@@ -1,17 +1,18 @@
 package com.tek271.jcraip.app;
 
+import com.tek271.jcraip.ai.bogus.BogusCaller;
 import org.apache.commons.lang3.NotImplementedException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BarInterfaceTest {
-  BarInterface sut = BarInterface.create();
+  BogusCaller aiCaller = new BogusCaller();
+  BarInterface sut = BarInterface.create(aiCaller);
 
-  @Disabled
   @Test
   void willRunMethodWithPrompt() {
+    aiCaller.ifQthenA("Given the arguments 13 and 90 and 3 find the maximum", "90");
     int max = sut.max(13, 90, 3);
     assertEquals(90, max);
   }
@@ -19,7 +20,8 @@ class BarInterfaceTest {
   @Test
   void noPromptMethod_willFail() {
     NotImplementedException ex = assertThrows(NotImplementedException.class, () -> sut.add_noPrompt(1, 2));
-    System.out.println(ex.getMessage());
+    String expected = "Method BarInterface.add_noPrompt does not have a Prompt annotation or a defined implementation";
+    assertEquals(expected, ex.getMessage());
   }
 
   @Test

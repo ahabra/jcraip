@@ -1,5 +1,7 @@
 package com.tek271.jcraip;
 
+import com.tek271.jcraip.ai.base.AiCaller;
+import com.tek271.jcraip.ai.gemini.GeminiCaller;
 import com.tek271.jcraip.instrument.Interceptor;
 import com.tek271.jcraip.instrument.InterfaceProxy;
 import com.tek271.jcraip.prompt.PromptRunnerImpl;
@@ -22,8 +24,12 @@ public class AiObjectFactory {
     this.promptRunner = promptRunner;
   }
 
+  public AiObjectFactory(AiCaller aiCaller) {
+    this(new PromptRunnerImpl(aiCaller));
+  }
+
   public AiObjectFactory() {
-    this(new PromptRunnerImpl());
+    this(new PromptRunnerImpl(new GeminiCaller()));
   }
 
   /**

@@ -1,13 +1,14 @@
 package com.tek271.jcraip.app;
 
 import com.tek271.jcraip.AiObjectFactory;
+import com.tek271.jcraip.ai.base.AiCaller;
 import com.tek271.jcraip.prompt.Prompt;
 import org.apache.commons.lang3.NotImplementedException;
 
 public abstract class AbstractService {
 
-  public static AbstractService createService() {
-    return new AiObjectFactory().createProxy(AbstractService.class);
+  public static AbstractService createService(AiCaller aiCaller) {
+    return new AiObjectFactory(aiCaller).createProxy(AbstractService.class);
   }
 
   @Prompt("multiply them")

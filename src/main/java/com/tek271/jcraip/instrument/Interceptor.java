@@ -23,7 +23,7 @@ public class Interceptor {
   @RuntimeType
   public Object intercept(@Origin Method originalMethod,
                           @AllArguments Object[] args) {
-    System.out.println(originalMethod);
+//    System.out.println(originalMethod);
     return promptRunner.run(originalMethod, args);
   }
 
