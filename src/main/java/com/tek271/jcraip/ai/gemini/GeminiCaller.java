@@ -38,6 +38,11 @@ public class GeminiCaller implements AiCaller {
     return new AiAnswer(httpStatus, respPayload.getFirstAnswer());
   }
 
+  @Override
+  public String getName() {
+    return "GeminiCaller";
+  }
+
 
   /**
    * Read the value of the given env. variable name

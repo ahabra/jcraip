@@ -25,6 +25,11 @@ public class BogusCaller implements AiCaller {
     return db.get(text);
   }
 
+  @Override
+  public String getName() {
+    return "BogusCaller";
+  }
+
   public void ifQthenA(String question, String answer) {
     question = normalize(question + "and return the result as result=");
     AiAnswer aiAnswer = new AiAnswer("result=" + answer);

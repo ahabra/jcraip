@@ -9,7 +9,8 @@ import java.lang.reflect.Method;
 
 public class PromptRunnerImpl implements PromptRunner {
   private final AiCaller aiCaller;
-  TypeCoercer typeCoercer = new TypeCoercer();
+  private final TypeCoercer typeCoercer = new TypeCoercer();
+  private boolean isLog;
 
   public PromptRunnerImpl(AiCaller aiCaller) {
     this.aiCaller = aiCaller;
@@ -19,7 +20,7 @@ public class PromptRunnerImpl implements PromptRunner {
   public Object run(Method method, Object[] args) {
     PromptBuilder promptBuilder = new PromptBuilder();
     AiQuestion aiQuestion = promptBuilder.buildAiQuestion(method, args);
-//    System.out.println("Q: " +  aiQuestion.text());
+    logQuestion(aiQuestion);
 
     AiAnswer answer = aiCaller.call(aiQuestion);
     if (answer.responseCode() != 200) {
@@ -27,9 +28,35 @@ public class PromptRunnerImpl implements PromptRunner {
     }
     String answerText = answer.getAnswerAfterPrefix("result=");
 
-//    System.out.println(" A: " + answerText);
+    logAnswer(answer);
     return typeCoercer.coerce(answerText, method.getReturnType());
   }
+
+  @Override
+  public PromptRunner logging(boolean isLog) {
+    this.isLog = isLog;
+    return this;
+  }
+
+  @Override
+  public boolean isLogging() {
+    return isLog;
+  }
+
+  private void log(String message) {
+    if (isLog) {
+      System.out.println(message);
+    }
+  }
+
+  private void logQuestion(AiQuestion aiQuestion) {
+    log(aiCaller.getName() + " Q: " + aiQuestion.text());
+  }
+
+  private void logAnswer(AiAnswer aiAnswer) {
+    log("  A: " + aiAnswer.text());
+  }
+
 
 
 }

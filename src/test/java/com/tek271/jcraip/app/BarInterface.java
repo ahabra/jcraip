@@ -3,11 +3,14 @@ package com.tek271.jcraip.app;
 import com.tek271.jcraip.AiObjectFactory;
 import com.tek271.jcraip.ai.base.AiCaller;
 import com.tek271.jcraip.prompt.Prompt;
+import com.tek271.jcraip.prompt.PromptRunner;
+import com.tek271.jcraip.prompt.PromptRunnerImpl;
 
 public interface BarInterface {
 
   static BarInterface create(AiCaller aiCaller) {
-    return new AiObjectFactory(aiCaller).createProxy(BarInterface.class);
+    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(true);
+    return new AiObjectFactory(promptRunner).createProxy(BarInterface.class);
   }
 
   @Prompt("find the maximum")

@@ -3,12 +3,15 @@ package com.tek271.jcraip.app;
 import com.tek271.jcraip.AiObjectFactory;
 import com.tek271.jcraip.ai.base.AiCaller;
 import com.tek271.jcraip.prompt.Prompt;
+import com.tek271.jcraip.prompt.PromptRunner;
+import com.tek271.jcraip.prompt.PromptRunnerImpl;
 import org.apache.commons.lang3.NotImplementedException;
 
 public class FooService {
 
   public static FooService create(AiCaller aiCaller) {
-    return new AiObjectFactory(aiCaller).createProxy(FooService.class);
+    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(false);
+    return new AiObjectFactory(promptRunner).createProxy(FooService.class);
   }
 
   @Prompt("Sum them all")
