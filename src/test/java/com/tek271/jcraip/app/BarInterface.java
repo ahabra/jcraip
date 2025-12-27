@@ -8,8 +8,8 @@ import com.tek271.jcraip.prompt.PromptRunnerImpl;
 
 public interface BarInterface {
 
-  static BarInterface create(AiCaller aiCaller) {
-    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(true);
+  static BarInterface create(AiCaller aiCaller, boolean isLogging) {
+    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(isLogging);
     return new AiObjectFactory(promptRunner).createProxy(BarInterface.class);
   }
 

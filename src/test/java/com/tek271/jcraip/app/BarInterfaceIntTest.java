@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Disabled("running this often will cost $")
 class BarInterfaceIntTest {
   AiCaller aiCaller = new GeminiCaller();
-  BarInterface sut = BarInterface.create(aiCaller);
+  BarInterface sut = BarInterface.create(aiCaller, true);
 
   @Test
   void willRunMethodWithPrompt() {

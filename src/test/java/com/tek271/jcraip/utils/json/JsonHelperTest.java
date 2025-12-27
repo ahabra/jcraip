@@ -11,7 +11,6 @@ class JsonHelperTest {
   void toJson_convertsObject() {
     String json = JsonHelper.toJson(SAM);
 
-    System.out.println(json);
     PersonForTesting result = JsonHelper.fromJson(PersonForTesting.class, json);
     assertEquals(SAM, result);
   }

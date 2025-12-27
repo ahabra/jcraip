@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BarInterfaceTest {
   BogusCaller aiCaller = new BogusCaller();
-  BarInterface sut = BarInterface.create(aiCaller);
+  BarInterface sut = BarInterface.create(aiCaller, false);
 
   @Test
   void willRunMethodWithPrompt() {
