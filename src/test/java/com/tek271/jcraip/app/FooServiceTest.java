@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FooServiceTest {
   BogusCaller aiCaller = new BogusCaller();
-  FooService sut = FooService.create(aiCaller, false);
+  FooService sut = FooService.create(aiCaller, true);
 
   @Test
   void sum_returnsCorrectValues() {

@@ -9,8 +9,8 @@ import org.apache.commons.lang3.NotImplementedException;
 
 public abstract class AbstractService {
 
-  public static AbstractService createService(AiCaller aiCaller) {
-    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(false);
+  public static AbstractService createService(AiCaller aiCaller, boolean isLogging) {
+    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(isLogging);
     return new AiObjectFactory(promptRunner).createProxy(AbstractService.class);
   }
 

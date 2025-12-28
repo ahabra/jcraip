@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractServiceTest {
   BogusCaller aiCaller = new BogusCaller();
-  AbstractService sut = AbstractService.createService(aiCaller);
+  AbstractService sut = AbstractService.createService(aiCaller, false);
 
   @Test
   void multiply_abstract_test() {

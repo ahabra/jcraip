@@ -18,7 +18,6 @@ public class BogusCaller implements AiCaller {
   @Override
   public AiAnswer call(AiQuestion question) {
     String text = normalize(question.text());
-    System.out.println("Q text: " + text);
     return db.get(text);
   }
 
