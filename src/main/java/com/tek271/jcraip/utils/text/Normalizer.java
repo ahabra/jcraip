@@ -9,8 +9,9 @@ import java.util.Set;
 import static java.util.stream.Collectors.joining;
 
 public class Normalizer {
-  private static final Set<String> STOP_WORDS = Set.of("them", "then", "the", "and", "as", "is", "are");
-  private static final String STOP_WORDS_REGEX = String.join("|", STOP_WORDS);
+  private static final Set<String> STOP_WORDS = Set.of("them", "then", "the",
+    "and", "as", "is", "are",
+    "result", "return");
 
   private static final Set<String> SYMBOLS = Set.of("\\,", "\\n", "\\r", "\\t");
   private static final String SYMBOLS_REGEX = String.join("|", SYMBOLS);
@@ -36,9 +37,11 @@ public class Normalizer {
     return isEndsWithEquals? text + "=" : text;
   }
 
-  // FIXME split then remove stop words because order in set is not guaranteed
   static String removeStopWords(String text) {
-    return RegExUtils.replaceAll(text, STOP_WORDS_REGEX, " ");
+    return Splitter.on(' ').trimResults().omitEmptyStrings()
+      .splitToStream(text)
+      .filter(w -> !STOP_WORDS.contains(w))
+      .collect(joining(" "));
   }
 
   static String removeLeftSideOfEqual(String text) {

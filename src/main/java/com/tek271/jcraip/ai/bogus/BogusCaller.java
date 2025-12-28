@@ -28,7 +28,7 @@ public class BogusCaller implements AiCaller {
   }
 
   public void ifQthenA(String question, String answer) {
-    question = normalize(question + "and return the result as result=");
+    question = normalize(question + " and return the result as result=");
     AiAnswer aiAnswer = new AiAnswer("result=" + answer);
     db.put(question, aiAnswer);
   }

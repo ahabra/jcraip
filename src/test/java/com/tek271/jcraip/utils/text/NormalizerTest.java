@@ -30,9 +30,10 @@ class NormalizerTest {
   @Test
   void removeStopWords_test() {
     assertEquals("", removeStopWords(""));
-    assertEquals(" ", removeStopWords("the"));
-    assertEquals("   ", removeStopWords(" the "));
-    assertEquals("\n ", removeStopWords("\nthe"));
+    assertEquals("", removeStopWords("the"));
+    assertEquals("", removeStopWords(" the "));
+    assertEquals("", removeStopWords("\nthe"));
+    assertEquals("big", removeStopWords(" the big them "));
   }
 
   @Test
@@ -45,6 +46,6 @@ class NormalizerTest {
   @Test
   void normalize_test() {
     String text = "Given the arguments a=1 and b=4 and c=10 and d=20\nSum them all\nand return the result as result=";
-    assertEquals("givenarguments141020sumallreturnresult", normalize(text));
+    assertEquals("givenarguments141020sumall", normalize(text));
   }
 }
