@@ -34,7 +34,7 @@ class PromptBuilderTest {
     List<String> prompt = sut.buildPrompt(method, 1, 2);
     assertEquals(3, prompt.size());
 
-    assertEquals("Given the arguments 1 and 2", prompt.getFirst());
+    assertEquals("Given the arguments a=1 and b=2", prompt.getFirst());
     assertEquals("sum the arguments", prompt.get(1));
     assertEquals("and return the result as result=", prompt.get(2));
   }

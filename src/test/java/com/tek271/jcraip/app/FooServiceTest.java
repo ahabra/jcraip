@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FooServiceTest {
   BogusCaller aiCaller = new BogusCaller();
-  FooService sut = FooService.create(aiCaller);
+  FooService sut = FooService.create(aiCaller, true);
 
   @Test
   void sum_returnsCorrectValues() {
-    aiCaller.ifQthenA("Given the arguments 1 and 4 and 10 and 20, Sum them all", "35");
+    aiCaller.ifQthenA("Given the arguments a=1 and b=4 and c=10 and d=20, Sum them all", "35");
     assertEquals(35, sut.sum(1, 4, 10, 20));
   }
 

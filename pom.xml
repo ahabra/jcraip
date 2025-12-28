@@ -66,6 +66,7 @@
           <target>${java.version}</target>
           <debug>true</debug>
           <debuglevel>lines,vars,source</debuglevel>
+          <compilerArgument>-parameters</compilerArgument>
         </configuration>
       </plugin>
 
@@ -161,7 +162,7 @@
       <artifactId>byte-buddy</artifactId>
       <version>1.18.2</version>
     </dependency>
-    
+
     <dependency>
       <groupId>com.squareup.moshi</groupId>
       <artifactId>moshi</artifactId>
@@ -178,6 +179,12 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.20.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>33.5.0-jre</version>
     </dependency>
 
     <dependency>
