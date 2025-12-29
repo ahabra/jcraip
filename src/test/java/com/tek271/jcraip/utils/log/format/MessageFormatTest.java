@@ -89,10 +89,10 @@ class MessageFormatTest {
     Method method = MessageFormatTest.class.getDeclaredMethod("defaultFormat_withException");
     Exception ex = new RuntimeException("foo");
 
-    String msg = sut.buildMessage(TRACE, method, "msg1", ex);
+    String msg = sut.buildMessage(INFO, method, "msg1", ex);
 
     List<String> lines = Splitter.on("\n").trimResults().splitToList(msg);
-    assertTrue(lines.get(0).startsWith("TRACE "));
+    assertTrue(lines.get(0).startsWith("INFO "));
     assertTrue(lines.get(0).endsWith("format.MessageFormatTest.defaultFormat_withException() msg1"));
     assertEquals("java.lang.RuntimeException: foo", lines.get(1));
   }

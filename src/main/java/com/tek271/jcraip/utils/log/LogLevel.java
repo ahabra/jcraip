@@ -7,7 +7,7 @@ public enum LogLevel {
   WARN,
   ERROR;
 
-  public static String text(LogLevel logLevel) {
+  public static String toString(LogLevel logLevel) {
     if (logLevel == null) {
       logLevel = TRACE;
     }

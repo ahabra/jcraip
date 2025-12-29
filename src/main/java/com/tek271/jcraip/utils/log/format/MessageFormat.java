@@ -1,6 +1,7 @@
 package com.tek271.jcraip.utils.log.format;
 
 import com.tek271.jcraip.utils.log.LogLevel;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -8,8 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.tek271.jcraip.utils.log.format.MessagePartType.*;
-import static org.apache.commons.lang3.StringUtils.repeat;
 
+/**
+ * Define a format for a logging message
+ */
 public class MessageFormat {
   static final String DATE_FORMAT_DEFAULT = "yyyy.MM.dd";
   static final String TIME_FORMAT_DEFAULT = "HH:mm:ss";
@@ -31,6 +34,7 @@ public class MessageFormat {
     return this;
   }
 
+  /** Prevent changing the current instance of this object */
   public MessageFormat lock() {
     isLocked = true;
     return this;
@@ -48,10 +52,12 @@ public class MessageFormat {
     }
   }
 
+  /** Add a log level to the message format  */
   public MessageFormat level() {
     return add(new MessagePart(level));
   }
 
+  /** Add current date to the message format  */
   public MessageFormat date(String dateFormat) {
     MessagePart part = new MessagePart(date);
     part.setDateFormat(dateFormat);
@@ -62,6 +68,7 @@ public class MessageFormat {
     return date(DATE_FORMAT_DEFAULT);
   }
 
+  /** Add current time to the message format  */
   public MessageFormat time(String timeFormat) {
     MessagePart part = new MessagePart(time);
     part.setTimeFormat(timeFormat);
@@ -72,45 +79,66 @@ public class MessageFormat {
     return time(TIME_FORMAT_DEFAULT);
   }
 
+  /**
+   * add class name to the message format
+   * @param packageDepth how many package level should be shown with class name. Zero means no package names
+   * @return this object
+   */
   public MessageFormat className(int packageDepth) {
     MessagePart part = new MessagePart(className);
     part.setPackageDepth(packageDepth);
     return add(part);
   }
 
+  /** add class name to the message format with package depth = PACKAGE_DEPTH_DEFAULT */
   public MessageFormat className() {
     return className(PACKAGE_DEPTH_DEFAULT);
   }
 
+  /** add method name to the message format */
   public MessageFormat method() {
     return add(new MessagePart(method));
   }
 
+  /**
+   * add a throwable to the message format
+   * @param stackDepth depth of the stack trace to log
+   * @return this object
+   */
   public MessageFormat throwable(int stackDepth) {
     MessagePart part = new MessagePart(throwable);
     part.setStackDepth(stackDepth);
     return add(part);
   }
 
+  /** add a throwable to the message format with depth = STACK_DEPTH_DEFAULT */
   public MessageFormat throwable() {
     return throwable(STACK_DEPTH_DEFAULT);
   }
 
+  /** add message to the message format */
   public MessageFormat message() {
     MessagePart part = new MessagePart(message);
     return add(part);
   }
 
+  /** add a place-holder to the message format */
   public MessageFormat placeholder(String placeholder) {
     MessagePart part = new MessagePart(MessagePartType.placeHolder);
     part.setPlaceholder(placeholder);
     return add(part);
   }
 
+  /**
+   * Add space to the message format
+   * @param count number of spaces to add
+   * @return this object
+   */
   public MessageFormat space(int count) {
-    return placeholder(repeat(' ', count));
+    return placeholder(StringUtils.repeat(' ', count));
   }
 
+  /** Add a single space to the message format */
   public MessageFormat space() {
     return space(1);
   }
@@ -121,6 +149,9 @@ public class MessageFormat {
       .collect(Collectors.toList());
   }
 
+  /**
+   * Build a log message using the current format and the given arguments
+   */
   public String buildMessage(LogLevel logLevel, Method method, String message, Throwable throwable) {
     return String.join("", buildMessageLines(logLevel, method, message, throwable));
   }

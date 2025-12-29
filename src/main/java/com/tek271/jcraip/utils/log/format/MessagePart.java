@@ -11,6 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Define a part of a logging message
+ */
 public class MessagePart {
   private final MessagePartType type;
   private String placeholder = "";
@@ -26,7 +29,7 @@ public class MessagePart {
 
   public String toString(LogLevel logLevel, Method method, String message, Throwable throwable) {
     return switch (type) {
-      case level -> LogLevel.text(logLevel);
+      case level -> LogLevel.toString(logLevel);
       case date -> LocalDate.now().format(dateFormatter);
       case time -> LocalDateTime.now().format(timeFormatter);
       case className -> extractClassName(method);
