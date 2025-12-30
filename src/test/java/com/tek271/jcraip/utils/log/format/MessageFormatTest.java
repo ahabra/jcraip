@@ -97,7 +97,6 @@ class MessageFormatTest {
     assertEquals("java.lang.RuntimeException: foo", lines.get(1));
   }
 
-
   @Test
   void defaultFormat_withNoException() throws NoSuchMethodException {
     sut = DEFAULT_FORMAT;
