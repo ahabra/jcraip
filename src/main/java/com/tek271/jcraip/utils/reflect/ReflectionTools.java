@@ -2,6 +2,9 @@ package com.tek271.jcraip.utils.reflect;
 
 import com.tek271.jcraip.prompt.Prompt;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,4 +63,13 @@ public class ReflectionTools {
     }
   }
 
+  /** Find a method handle using the Java invoke API */
+  public static MethodHandle findMethod(Class<?> cls, String methodName, MethodType methodType) {
+    MethodHandles.Lookup lookup = MethodHandles.lookup();
+    try {
+      return lookup.findVirtual(cls, methodName, methodType);
+    } catch (NoSuchMethodException | IllegalAccessException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

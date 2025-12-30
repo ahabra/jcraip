@@ -3,6 +3,8 @@ package com.tek271.jcraip.utils.reflect;
 import com.tek271.jcraip.prompt.Prompt;
 import org.junit.jupiter.api.Test;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
 import java.util.AbstractList;
 
@@ -49,5 +51,22 @@ class ReflectionToolsTest {
   private void methodWithPrompt() {
   }
 
+  int methodToFind(int a) {
+    return a*2;
+  }
+
+  @Test
+  void findMethod_test() {
+    MethodType mt = MethodType.methodType(int.class, int.class);
+
+    MethodHandle mh = findMethod(this.getClass(), "methodToFind", mt);
+
+    assertNotNull(mh);
+    MethodType type = mh.type();
+    assertEquals(2, type.parameterCount());
+    assertEquals(this.getClass(), type.parameterType(0));
+    assertEquals(int.class, type.parameterType(1));
+    assertEquals(int.class, type.returnType());
+  }
 
 }
