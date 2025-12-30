@@ -1,25 +1,18 @@
 package com.tek271.jcraip.utils.log;
 
-public class Log {
+public interface Log {
+  LogWriter trace = new LogWriter(LogLevel.TRACE);
+  LogWriter debug = new LogWriter(LogLevel.DEBUG);
+  LogWriter info = new LogWriter(LogLevel.INFO);
+  LogWriter warn = new LogWriter(LogLevel.WARN);
+  LogWriter error = new LogWriter(LogLevel.ERROR);
 
-  public LogWriter trace() {
-    return new LogWriter(LogLevel.TRACE);
-  }
-
-  public LogWriter debug() {
-    return new LogWriter(LogLevel.DEBUG);
-  }
-
-  public LogWriter info() {
-    return new LogWriter(LogLevel.INFO);
-  }
-
-  public LogWriter warn() {
-    return new LogWriter(LogLevel.WARN);
-  }
-
-  public LogWriter error() {
-    return new LogWriter(LogLevel.ERROR);
+  static void reset() {
+    trace.reset();
+    debug.reset();
+    info.reset();
+    warn.reset();
+    error.reset();
   }
 
 }

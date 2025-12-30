@@ -4,6 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.tek271.jcraip.utils.reflect.StackTools;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,11 +14,16 @@ import static java.io.OutputStream.nullOutputStream;
 public class LogWriter {
   public final LogLevel logLevel;
   private final LogConfig logConfig = LogConfig.instance;
-  List<String> logLines;
-  PrintStream printStream = System.out;
+  private List<String> logLines = null;
+  private PrintStream printStream = System.out;
 
   public LogWriter(LogLevel logLevel) {
     this.logLevel = logLevel;
+  }
+
+  public void reset() {
+    logLines = null;
+    printStream = System.out;
   }
 
   public void setPrintStream(PrintStream printStream) {
@@ -26,6 +32,14 @@ public class LogWriter {
 
   public void setNullPrintStream() {
     setPrintStream(new PrintStream(nullOutputStream()));
+  }
+
+  public void enableLogLines(boolean enable) {
+    logLines = enable ? new ArrayList<>() : null;
+  }
+
+  public List<String> getLogLines() {
+    return logLines;
   }
 
   private void print(String message) {

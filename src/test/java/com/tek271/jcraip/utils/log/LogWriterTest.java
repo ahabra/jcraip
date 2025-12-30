@@ -4,7 +4,6 @@ import com.google.common.base.Splitter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.tek271.jcraip.utils.log.LogLevel.INFO;
@@ -19,14 +18,14 @@ class LogWriterTest {
   void beforeEach() {
     LogConfig.instance.reset();
     sut = new LogWriter(LOG_LEVEL);
-    sut.logLines = new ArrayList<>();
+    sut.enableLogLines(true);
     sut.setNullPrintStream();
   }
 
   @Test
   void log_message() {
     sut.log("m1");
-    String line = sut.logLines.getFirst();
+    String line = sut.getLogLines().getFirst();
     assertTrue(line.startsWith(LOG_LEVEL.toString()));
     assertTrue(line.endsWith("log.LogWriterTest.log_message() m1"));
   }
@@ -34,7 +33,7 @@ class LogWriterTest {
   @Test
   void log_messageWithArgs() {
     sut.log("name=%s, age=%s", "bob", 42);
-    String line = sut.logLines.getFirst();
+    String line = sut.getLogLines().getFirst();
     assertTrue(line.endsWith("log_messageWithArgs() name=bob, age=42"));
   }
 
@@ -44,7 +43,7 @@ class LogWriterTest {
     sut.log(ex);
     List<String> lines = Splitter.on('\n')
       .trimResults().omitEmptyStrings()
-      .splitToList(sut.logLines.getFirst());
+      .splitToList(sut.getLogLines().getFirst());
     assertTrue(lines.getFirst().endsWith("log.LogWriterTest.log_throwable()"));
     assertEquals(ex.toString(), lines.get(1));
   }
@@ -55,7 +54,7 @@ class LogWriterTest {
     sut.log(ex, "name=%s, age=%s", "bob", 42);
     List<String> lines = Splitter.on('\n')
       .trimResults().omitEmptyStrings()
-      .splitToList(sut.logLines.getFirst());
+      .splitToList(sut.getLogLines().getFirst());
     assertTrue(lines.getFirst().endsWith("log_messageWithArgsAndThrowable() name=bob, age=42"));
     assertEquals(ex.toString(), lines.get(1));
   }
@@ -64,14 +63,14 @@ class LogWriterTest {
   void willNotLogIfLogLevelIsLessThanConfigLevel() {
     LogConfig.instance.logLevel = WARN;
     sut.log("m1");
-    assertEquals(0, sut.logLines.size());
+    assertEquals(0, sut.getLogLines().size());
   }
 
   @Test
   void willNotLogIfCallersThatLogContainUnusedClasses() {
     LogConfig.instance.callersThatLog.add(String.class);
     sut.log("m1");
-    assertEquals(0, sut.logLines.size());
+    assertEquals(0, sut.getLogLines().size());
   }
 
   @Test
@@ -79,8 +78,8 @@ class LogWriterTest {
     LogConfig.instance.callersThatLog.add(String.class);
     LogConfig.instance.callersThatLog.add(this.getClass());
     sut.log("m1");
-    assertEquals(1, sut.logLines.size());
-    String line = sut.logLines.getFirst();
+    assertEquals(1, sut.getLogLines().size());
+    String line = sut.getLogLines().getFirst();
     assertTrue(line.endsWith("willLogIfCallersThatLogContainUsedClasses() m1"));
   }
 
