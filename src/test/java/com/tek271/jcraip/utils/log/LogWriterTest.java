@@ -4,22 +4,23 @@ import com.google.common.base.Splitter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tek271.jcraip.utils.log.LogLevel.INFO;
+import static com.tek271.jcraip.utils.log.LogLevel.WARN;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LogWriterTest {
-  private static final LogLevel LOG_LEVEL = LogLevel.INFO;
+  private static final LogLevel LOG_LEVEL = INFO;
   LogWriter sut;
 
   @BeforeEach
   void beforeEach() {
+    LogConfig.instance.reset();
     sut = new LogWriter(LOG_LEVEL);
     sut.logLines = new ArrayList<>();
-    sut.setPrintStream( new PrintStream(OutputStream.nullOutputStream()) );
+    sut.setNullPrintStream();
   }
 
   @Test
@@ -59,7 +60,53 @@ class LogWriterTest {
     assertEquals(ex.toString(), lines.get(1));
   }
 
-  // TODO test if logging level is too low to log
-  // TODO test control with logConfig.callersThatLog
+  @Test
+  void willNotLogIfLogLevelIsLessThanConfigLevel() {
+    LogConfig.instance.logLevel = WARN;
+    sut.log("m1");
+    assertEquals(0, sut.logLines.size());
+  }
+
+  @Test
+  void willNotLogIfCallersThatLogContainUnusedClasses() {
+    LogConfig.instance.callersThatLog.add(String.class);
+    sut.log("m1");
+    assertEquals(0, sut.logLines.size());
+  }
+
+  @Test
+  void willLogIfCallersThatLogContainUsedClasses() {
+    LogConfig.instance.callersThatLog.add(String.class);
+    LogConfig.instance.callersThatLog.add(this.getClass());
+    sut.log("m1");
+    assertEquals(1, sut.logLines.size());
+    String line = sut.logLines.getFirst();
+    assertTrue(line.endsWith("willLogIfCallersThatLogContainUsedClasses() m1"));
+  }
+
+  @Test
+  void canLog_returnsFalseIfLogLevelIsLow() {
+    LogConfig.instance.logLevel = WARN;
+    sut =  new LogWriter(INFO);
+    assertFalse(sut.canLog());
+  }
+
+  @Test
+  void canLog_returnsTrueIfCallsThatLogIsEmpty() {
+    LogConfig.instance.callersThatLog.clear();
+    assertTrue(sut.canLog());
+  }
+
+  @Test
+  void canLog_returnsFalseIfCallsThatLogContainUnusedClasses() {
+    LogConfig.instance.callersThatLog.add(String.class);
+    assertFalse(sut.canLog());
+  }
+
+  @Test
+  void canLog_returnsTrueIfCallsThatLogContainUsedClasses() {
+    LogConfig.instance.callersThatLog.add(this.getClass());
+    assertTrue(sut.canLog());
+  }
 
 }

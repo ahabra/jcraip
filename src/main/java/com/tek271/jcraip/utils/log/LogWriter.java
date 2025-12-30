@@ -1,5 +1,6 @@
 package com.tek271.jcraip.utils.log;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.tek271.jcraip.utils.reflect.StackTools;
 
 import java.io.PrintStream;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.tek271.jcraip.utils.reflect.StackTools.frameAt;
+import static java.io.OutputStream.nullOutputStream;
 
 public class LogWriter {
   public final LogLevel logLevel;
@@ -20,6 +22,10 @@ public class LogWriter {
 
   public void setPrintStream(PrintStream printStream) {
     this.printStream = printStream;
+  }
+
+  public void setNullPrintStream() {
+    setPrintStream(new PrintStream(nullOutputStream()));
   }
 
   private void print(String message) {
@@ -57,7 +63,8 @@ public class LogWriter {
     return String.format(message, args);
   }
 
-  private boolean canLog() {
+  @VisibleForTesting
+  boolean canLog() {
     if (logLevel.code < logConfig.logLevel.code) {
       return false;
     }

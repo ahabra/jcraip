@@ -14,4 +14,11 @@ public class LogConfig {
 
   private LogConfig() {}
 
+  /** Call this specially in tests */
+  public void reset() {
+    logLevel = LogLevel.DEBUG;
+    messageFormat = MessageFormat.DEFAULT_FORMAT;
+    callersThatLog.clear();
+  }
+
 }
