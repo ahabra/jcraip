@@ -4,7 +4,7 @@ import com.google.common.base.Splitter;
 import com.tek271.jcraip.utils.log.LogLevel;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.lang.reflect.Method;
+import java.lang.StackWalker.StackFrame;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,13 +27,13 @@ public class MessagePart {
     this.type = type;
   }
 
-  public String toString(LogLevel logLevel, Method method, String message, Throwable throwable) {
+  public String toString(LogLevel logLevel, StackFrame stackFrame, String message, Throwable throwable) {
     return switch (type) {
       case level -> LogLevel.toString(logLevel);
       case date -> LocalDate.now().format(dateFormatter);
       case time -> LocalDateTime.now().format(timeFormatter);
-      case className -> extractClassName(method);
-      case method -> method == null ? "" : method.getName();
+      case className -> extractClassName(stackFrame);
+      case method -> stackFrame == null ? "" : stackFrame.getMethodName();
       case message -> message;
       case throwable -> extractThrowable(throwable);
       case placeHolder -> this.placeholder;
@@ -60,12 +60,12 @@ public class MessagePart {
     this.stackDepth = stackDepth;
   }
 
-  private String extractClassName(Method method) {
-    if (method == null) {
+  private String extractClassName(StackFrame stackFrame) {
+    if (stackFrame == null) {
       return "";
     }
 
-    Class<?> cls = method.getDeclaringClass();
+    Class<?> cls = stackFrame.getDeclaringClass();
     if (packageDepth == 0) {
       return cls.getSimpleName();
     }

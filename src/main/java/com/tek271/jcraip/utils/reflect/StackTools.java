@@ -37,7 +37,7 @@ public class StackTools {
 
   /** Get the StackFrame at the currently executing method */
   public static StackFrame currentLocation() {
-    return stackTop(3).get(2);
+    return frameAt(2);
   }
 
   /**
@@ -51,6 +51,19 @@ public class StackTools {
 
   /**
    * Check if the stack contains any of the given classes
+   * @param classSet a set of classes
+   * @return true if classSet is empty, or if any of the classes is found. false otherwise.
+   */
+  public static boolean stackContainsAnyClass(Set<Class<?>> classSet) {
+    if (classSet == null || classSet.isEmpty()) {
+      return true;
+    }
+    return walker().walk(s -> s.map(StackFrame::getDeclaringClass)
+      .anyMatch(classSet::contains));
+  }
+
+  /**
+   * Check if the stack contains any of the given classes
    * @param classes a vararg array of classes
    * @return true if classes is empty, or if any of the classes is found. false otherwise.
    */
@@ -58,10 +71,7 @@ public class StackTools {
     if (classes.length == 0) {
       return true;
     }
-    Set<Class<?>> classSet = Set.of(classes);
-
-    return walker().walk(s -> s.map(StackFrame::getDeclaringClass)
-      .anyMatch(classSet::contains));
+    return stackContainsAnyClass(Set.of(classes));
   }
 
   /** Helps with debugging */

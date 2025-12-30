@@ -3,7 +3,7 @@ package com.tek271.jcraip.utils.log.format;
 import com.tek271.jcraip.utils.log.LogLevel;
 import org.apache.commons.lang3.StringUtils;
 
-import java.lang.reflect.Method;
+import java.lang.StackWalker.StackFrame;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -143,17 +143,17 @@ public class MessageFormat {
     return space(1);
   }
 
-  List<String> buildMessageLines(LogLevel logLevel, Method method, String message, Throwable throwable) {
+  List<String> buildMessageLines(LogLevel logLevel, StackFrame stackFrame, String message, Throwable throwable) {
     return parts.stream()
-      .map(p -> p.toString(logLevel, method, message, throwable))
+      .map(p -> p.toString(logLevel, stackFrame, message, throwable))
       .collect(Collectors.toList());
   }
 
   /**
    * Build a log message using the current format and the given arguments
    */
-  public String buildMessage(LogLevel logLevel, Method method, String message, Throwable throwable) {
-    return String.join("", buildMessageLines(logLevel, method, message, throwable));
+  public String buildMessage(LogLevel logLevel, StackFrame stackFrame, String message, Throwable throwable) {
+    return String.join("", buildMessageLines(logLevel, stackFrame, message, throwable));
   }
 
 }

@@ -1,9 +1,10 @@
 package com.tek271.jcraip.utils.log.format;
 
 import com.google.common.base.Splitter;
+import com.tek271.jcraip.utils.reflect.StackTools;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Method;
+import java.lang.StackWalker.StackFrame;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -17,12 +18,12 @@ class MessageFormatTest {
   MessageFormat sut = new MessageFormat();
 
   @Test
-  void simpleTest() throws NoSuchMethodException {
-    Method method = MessageFormatTest.class.getDeclaredMethod("simpleTest");
+  void simpleTest() {
+    StackFrame frame = StackTools.currentLocation();
     sut = sut.level().space().date().space()
       .className().placeholder(".").method().placeholder("() ")
       .message();
-    String msg = sut.buildMessage(DEBUG, method, "foo", null);
+    String msg = sut.buildMessage(DEBUG, frame, "foo", null);
 
     String date = now().format(DateTimeFormatter.ofPattern(DATE_FORMAT_DEFAULT));
     String expected = "DEBUG " + date + " format.MessageFormatTest.simpleTest() foo";
@@ -31,34 +32,34 @@ class MessageFormatTest {
   }
 
   @Test
-  void classNameDepth_test() throws NoSuchMethodException {
-    Method method = MessageFormatTest.class.getDeclaredMethod("classNameDepth_test");
+  void classNameDepth_test() {
+    StackFrame frame = StackTools.currentLocation();
 
-    String msg = sut.className().buildMessage(DEBUG, method, "foo", null);
+    String msg = sut.className().buildMessage(DEBUG, frame, "foo", null);
     assertEquals("format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(1).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(1).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(2).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(2).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("log.format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(3).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(3).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("utils.log.format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(4).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(4).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("jcraip.utils.log.format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(5).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(5).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("tek271.jcraip.utils.log.format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(6).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(6).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("com.tek271.jcraip.utils.log.format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(10).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(10).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("com.tek271.jcraip.utils.log.format.MessageFormatTest", msg);
 
-    msg = sut.clear().className(1000).buildMessage(DEBUG, method, "foo", null);
+    msg = sut.clear().className(1000).buildMessage(DEBUG, frame, "foo", null);
     assertEquals("com.tek271.jcraip.utils.log.format.MessageFormatTest", msg);
   }
 
@@ -84,12 +85,12 @@ class MessageFormatTest {
   }
 
   @Test
-  void defaultFormat_withException() throws NoSuchMethodException {
+  void defaultFormat_withException() {
     sut = DEFAULT_FORMAT;
-    Method method = MessageFormatTest.class.getDeclaredMethod("defaultFormat_withException");
+    StackFrame frame = StackTools.currentLocation();
     Exception ex = new RuntimeException("foo");
 
-    String msg = sut.buildMessage(INFO, method, "msg1", ex);
+    String msg = sut.buildMessage(INFO, frame, "msg1", ex);
 
     List<String> lines = Splitter.on("\n").trimResults().splitToList(msg);
     assertTrue(lines.get(0).startsWith("INFO "));
@@ -98,11 +99,11 @@ class MessageFormatTest {
   }
 
   @Test
-  void defaultFormat_withNoException() throws NoSuchMethodException {
+  void defaultFormat_withNoException() {
     sut = DEFAULT_FORMAT;
-    Method method = MessageFormatTest.class.getDeclaredMethod("defaultFormat_withNoException");
+    StackFrame frame = StackTools.currentLocation();
 
-    String msg = sut.buildMessage(TRACE, method, "msg1", null);
+    String msg = sut.buildMessage(TRACE, frame, "msg1", null);
     assertTrue(msg.startsWith("TRACE "));
     assertTrue(msg.endsWith("format.MessageFormatTest.defaultFormat_withNoException() msg1"));
   }
