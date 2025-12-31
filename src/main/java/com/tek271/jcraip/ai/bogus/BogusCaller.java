@@ -3,6 +3,7 @@ package com.tek271.jcraip.ai.bogus;
 import com.tek271.jcraip.ai.base.AiAnswer;
 import com.tek271.jcraip.ai.base.AiCaller;
 import com.tek271.jcraip.ai.base.AiQuestion;
+import com.tek271.jcraip.utils.log.Log;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,11 @@ public class BogusCaller implements AiCaller {
   @Override
   public AiAnswer call(AiQuestion question) {
     String text = normalize(question.text());
-    return db.get(text);
+    AiAnswer answer = db.get(text);
+    if (answer == null) {
+      Log.warn.log("Question: %s did not have an answer", question);
+    }
+    return answer;
   }
 
   @Override
