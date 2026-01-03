@@ -8,40 +8,55 @@ import static com.tek271.jcraip.utils.json.PersonForTesting.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class JsonTest {
-  Json sut = new Json();
 
   @Test
   void canConvertSimpleObjectToText() {
+    Json<PersonForTesting> sut = new Json<>();
     String text = sut.baseType(PersonForTesting.class).toText(SAM);
     String expected = "{\"name\":\"Sam\",\"age\":42}";
     assertEquals(expected, text);
+
+    PersonForTesting parsed = sut.parse(text);
+    assertEquals(SAM, parsed);
   }
 
   @Test
   void canConvertListOfIntegers() {
+    Json<List> sut = new Json<>();
     List<Integer> list = List.of(1, 2, 3);
     String text = sut.baseType(List.class).parametrizedTypes(Integer.class).toText(list);
     String expected = "[1,2,3]";
     assertEquals(expected, text);
+
+    List<Integer> parsed = sut.parse(text);
+    assertEquals(list, parsed);
   }
 
   @Test
   void canConvertListOfObjects() {
+    Json<List> sut = new Json<>();
     List<PersonForTesting> list = List.of(SAM, ADA, SKY);
     String text = sut.baseType(List.class).parametrizedTypes(PersonForTesting.class).toText(list);
 
     String expected = """
       [{"name":"Sam","age":42},{"name":"Ada","age":10},{"name":"Sky","age":14}]
       """.trim();
-    System.out.println(text);
     assertEquals(expected, text);
+
+    List<PersonForTesting> parsed = sut.parse(text);
+    assertEquals(list, parsed);
   }
 
   @Test
   void ifBaseTypeWasNotSetThenUseTheObjectType() {
+    Json<PersonForTesting> sut = new Json<>();
     String text = sut.toText(SAM);
     String expected = "{\"name\":\"Sam\",\"age\":42}";
     assertEquals(expected, text);
+
+    PersonForTesting parsed = sut.parse(text);
+    assertEquals(SAM, parsed);
   }
+  
 
 }
