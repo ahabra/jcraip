@@ -57,6 +57,6 @@ class JsonTest {
     PersonForTesting parsed = sut.parse(text);
     assertEquals(SAM, parsed);
   }
-  
+
 
 }

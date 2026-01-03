@@ -1,9 +1,11 @@
 package com.tek271.jcraip.ai.gemini.structure;
 
-import com.tek271.jcraip.utils.json.JsonHelper;
+import com.tek271.jcraip.utils.json.Json;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static com.tek271.jcraip.utils.json.Json.json;
 
 public record RequestPayload(List<Content> contents) {
 
@@ -17,7 +19,7 @@ public record RequestPayload(List<Content> contents) {
   }
 
   public String toJson(String indent) {
-    return JsonHelper.toJson(this, indent);
+    return json().indent(indent).toText(this);
   }
 
   public String toJson() {
@@ -25,7 +27,7 @@ public record RequestPayload(List<Content> contents) {
   }
 
   public static RequestPayload fromJson(String json) {
-    return JsonHelper.fromJson(RequestPayload.class, json);
+    return Json.<RequestPayload>json().baseType(RequestPayload.class).parse(json);
   }
 
 }

@@ -19,6 +19,10 @@ public class Json<BT> {
     moshi = new Moshi.Builder().build();
   }
 
+  public static <T> Json<T> json() {
+    return new Json<T>();
+  }
+
   public Json<BT> baseType(Class<BT> baseType) {
     this.baseType = baseType;
     return this;
