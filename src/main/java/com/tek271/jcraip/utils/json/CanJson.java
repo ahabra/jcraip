@@ -10,6 +10,7 @@ public interface CanJson<T> {
     return toJson("");
   }
 
+  @SuppressWarnings("unchecked")
   default T fromJson(String json) {
     Class<T> type = (Class<T>) this.getClass();
     return Json.<T>json().baseType(type).parse(json);
