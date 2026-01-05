@@ -4,6 +4,8 @@ import com.tek271.jcraip.ai.bogus.BogusCaller;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Test;
 
+import static com.tek271.jcraip.utils.json.PersonForTesting.*;
+import static com.tek271.jcraip.utils.json.PersonForTesting.SAM;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BarInterfaceTest {
@@ -33,5 +35,21 @@ class BarInterfaceTest {
   void defaultMethod() {
     assertEquals(10, sut.defaultMethod(5));
   }
+
+  @Test
+  void methodWithJsonArg() {
+    String jsonText = ADA_SAM_SKY_JSON;
+
+    String question = String.format("""
+      Given the arguments:
+      as JSON persons=%s
+      find the name with highest age
+      """, jsonText).trim();
+    aiCaller.ifQthenA(question, "Sam");
+
+    String name = sut.findNameOfOldest(jsonText);
+    assertEquals(SAM.name(), name);
+  }
+
 
 }

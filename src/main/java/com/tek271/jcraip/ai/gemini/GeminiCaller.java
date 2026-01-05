@@ -10,7 +10,8 @@ import com.tek271.jcraip.utils.net.HttpCaller;
 import java.net.http.HttpResponse;
 
 public class GeminiCaller implements AiCaller {
-  private static final String URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+//  private static final String URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+  private static final String URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-preview:generateContent";
   private static final String API_KEY_NAME = "GEMINI_API_KEY";
 
   /**

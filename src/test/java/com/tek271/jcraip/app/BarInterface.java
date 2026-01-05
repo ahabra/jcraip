@@ -2,6 +2,7 @@ package com.tek271.jcraip.app;
 
 import com.tek271.jcraip.AiObjectFactory;
 import com.tek271.jcraip.ai.base.AiCaller;
+import com.tek271.jcraip.prompt.IsJson;
 import com.tek271.jcraip.prompt.Prompt;
 import com.tek271.jcraip.prompt.PromptRunner;
 import com.tek271.jcraip.prompt.PromptRunnerImpl;
@@ -25,5 +26,11 @@ public interface BarInterface {
   default int defaultMethod(int a) {
     return a + a;
   }
+
+  @Prompt("find the name with highest age")
+  String findNameOfOldest(@IsJson String persons);
+
+  @Prompt("find the person with highest age")
+  @IsJson String findOldestPerson(@IsJson String persons);
 
 }
