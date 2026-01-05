@@ -26,7 +26,6 @@ class BarInterfaceIntTest {
     assertEquals(SAM.name(), name);
   }
 
-
   @Test
   void methodWithJsonReturn() {
     String json = sut.findOldestPerson(ADA_SAM_SKY_JSON);

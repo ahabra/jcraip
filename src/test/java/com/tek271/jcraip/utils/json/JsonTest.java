@@ -13,8 +13,7 @@ class JsonTest {
   void canConvertSimpleObjectToText() {
     Json<PersonForTesting> sut = new Json<>();
     String text = sut.baseType(PersonForTesting.class).toText(SAM);
-    String expected = "{\"name\":\"Sam\",\"age\":42}";
-    assertEquals(expected, text);
+    assertEquals(SAM.toJson(), text);
 
     PersonForTesting parsed = sut.parse(text);
     assertEquals(SAM, parsed);
@@ -35,13 +34,9 @@ class JsonTest {
   @Test
   void canConvertListOfObjects() {
     Json<List> sut = new Json<>();
-    List<PersonForTesting> list = List.of(SAM, ADA, SKY);
+    List<PersonForTesting> list = List.of(ADA, SAM, SKY);
     String text = sut.baseType(List.class).parametrizedTypes(PersonForTesting.class).toText(list);
-
-    String expected = """
-      [{"name":"Sam","age":42},{"name":"Ada","age":10},{"name":"Sky","age":14}]
-      """.trim();
-    assertEquals(expected, text);
+    assertEquals(ADA_SAM_SKY_JSON, text);
 
     List<PersonForTesting> parsed = sut.parse(text);
     assertEquals(list, parsed);
@@ -51,8 +46,7 @@ class JsonTest {
   void ifBaseTypeWasNotSetThenUseTheObjectType() {
     Json<PersonForTesting> sut = new Json<>();
     String text = sut.toText(SAM);
-    String expected = "{\"name\":\"Sam\",\"age\":42}";
-    assertEquals(expected, text);
+    assertEquals(SAM.toJson(), text);
 
     PersonForTesting parsed = sut.parse(text);
     assertEquals(SAM, parsed);
