@@ -1,6 +1,7 @@
 package com.tek271.jcraip.app;
 
 import com.tek271.jcraip.ai.bogus.BogusCaller;
+import com.tek271.jcraip.utils.json.PersonForTesting;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Test;
 
@@ -38,17 +39,32 @@ class BarInterfaceTest {
 
   @Test
   void methodWithJsonArg() {
-    String jsonText = ADA_SAM_SKY_JSON;
+    String json = ADA_SAM_SKY_JSON;
 
     String question = String.format("""
       Given the arguments:
       as JSON persons=%s
       find the name with highest age
-      """, jsonText).trim();
+      """, json).trim();
     aiCaller.ifQthenA(question, "Sam");
 
-    String name = sut.findNameOfOldest(jsonText);
+    String name = sut.findNameOfOldest(json);
     assertEquals(SAM.name(), name);
+  }
+
+  @Test
+  void methodWithJsonReturn() {
+    String question = String.format("""
+      Given the arguments:
+      as JSON persons=%s
+      find the person with highest age as json
+      """, ADA_SAM_SKY_JSON).trim();
+    aiCaller.ifQthenA(question, SAM_JSON);
+
+    String json = sut.findOldestPerson(ADA_SAM_SKY_JSON);
+
+    PersonForTesting found = EMPTY.fromJson(json);
+    assertEquals(SAM, found);
   }
 
 
