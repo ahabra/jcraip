@@ -2,6 +2,7 @@ package com.tek271.jcraip;
 
 import com.tek271.jcraip.prompt.Prompt;
 import com.tek271.jcraip.prompt.PromptBuilder;
+import com.tek271.jcraip.utils.structures.CollectionTools;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
@@ -32,11 +33,13 @@ class PromptBuilderTest {
   void testIntWithArgs() throws NoSuchMethodException {
     Method method = this.getClass().getDeclaredMethod("intWithArgs", int.class, int.class);
     List<String> prompt = sut.buildPrompt(method, 1, 2);
-    assertEquals(3, prompt.size());
+    assertEquals(5, prompt.size());
 
-    assertEquals("Given the arguments a=1 and b=2", prompt.getFirst());
-    assertEquals("sum the arguments", prompt.get(1));
-    assertEquals("and return the result as result=", prompt.get(2));
+    assertEquals("Given the arguments:", prompt.getFirst());
+    assertEquals("a=1", prompt.get(1));
+    assertEquals("and b=2", prompt.get(2));
+    assertEquals("sum the arguments", prompt.get(3));
+    assertEquals("and return the result as result=", prompt.get(4));
   }
 
 

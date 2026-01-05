@@ -12,7 +12,7 @@ class BarInterfaceTest {
 
   @Test
   void willRunMethodWithPrompt() {
-    aiCaller.ifQthenA("Given the arguments 13 and 90 and 3, find the maximum", "90");
+    aiCaller.ifQthenA("Given the arguments: 13 and 90 and 3, find the maximum", "90");
     int max = sut.max(13, 90, 3);
     assertEquals(90, max);
   }

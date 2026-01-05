@@ -5,6 +5,7 @@ import com.tek271.jcraip.ai.base.AiQuestion;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,35 +15,44 @@ public class PromptBuilder {
    * Build a prompt for a given method and its arguments
    */
   public List<String> buildPrompt(Method method, Object... args) {
-    List<String> result = new ArrayList<>();
-    String params = buildParameters(method.getParameters(), args);
-    result.add(params);
+    List<String> params = buildParameters(method.getParameters(), args);
+    List<String> result = new ArrayList<>(params);
     result.add(method.getDeclaredAnnotation(Prompt.class).value());
-    result.add(buildResultPrompt());
+    result.add(buildResultPrompt(method));
 
     return result.stream().filter(s -> !s.isEmpty()).toList();
   }
 
-  private String buildParameters(Parameter[] parameters, Object... args) {
+  private List<String> buildParameters(Parameter[] parameters, Object... args) {
     if (parameters.length == 0) {
-      return "";
+      return Collections.emptyList();
     }
     List<String> list = new ArrayList<>();
+    list.add("Given the arguments:");
     for (int i = 0; i < parameters.length; i++) {
-      list.add(buildParameter(parameters[i], args[i]));
+      String separator = i == 0? "" : "and ";
+      list.add(buildParameter(parameters[i], args[i], separator));
     }
-    return "Given the arguments " + String.join(" and ", list);
+    return list;
   }
 
-  private String buildParameter(Parameter parameter, Object value) {
-    String val = Objects.toString(value);
+  private String buildParameter(Parameter parameter, Object value, String separator) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(separator);
+    if (parameter.isAnnotationPresent(IsJson.class) ) {
+      sb.append("as JSON ");
+    }
     if (parameter.isNamePresent()) {
-      return parameter.getName() + "=" + val;
+      sb.append(parameter.getName()).append("=");
     }
-    return val;
+    sb.append(value);
+    return sb.toString();
   }
 
-  private String buildResultPrompt() {
+  private String buildResultPrompt(Method method) {
+    if (method.isAnnotationPresent(IsJson.class)) {
+      return "and return JSON result as result=";
+    }
     return "and return the result as result=";
   }
 
