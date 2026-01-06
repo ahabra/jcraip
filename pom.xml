@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.tek271</groupId>
-  <artifactId>jcraip</artifactId>
+  <artifactId>jpop</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>a Java library to use AI tools as code</description>
-  <url>https://github.com/ahabra/jcraip</url>
+  <url>https://github.com/ahabra/jpop</url>
 
   <!-- Required by sonatype maven central  -->
   <licenses>
@@ -37,9 +37,9 @@
 
   <!-- Required by sonatype maven central  -->
   <scm>
-    <connection>scm:git:git://github.com/ahabra/jcraip.git</connection>
-    <developerConnection>scm:git:ssh://github.com:ahabra/jcraip.git</developerConnection>
-    <url>https://github.com/ahabra/jcraip/tree/develop</url>
+    <connection>scm:git:git://github.com/ahabra/jpop.git</connection>
+    <developerConnection>scm:git:ssh://github.com:ahabra/jpop.git</developerConnection>
+    <url>https://github.com/ahabra/jpop/tree/develop</url>
   </scm>
 
   <!-- Required by sonatype maven central  -->
@@ -55,7 +55,7 @@
   </distributionManagement>
 
   <build>
-    <finalName>jcraip</finalName>
+    <finalName>jpop</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
