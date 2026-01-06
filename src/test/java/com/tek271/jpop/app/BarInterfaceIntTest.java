@@ -1,18 +1,20 @@
 package com.tek271.jpop.app;
 
-import com.tek271.jpop.ai.base.AiCaller;
 import com.tek271.jpop.ai.gemini.GeminiCaller;
 import com.tek271.jpop.utils.json.PersonForTesting;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static com.tek271.jpop.AiObjectBuilder.aiBuilder;
 import static com.tek271.jpop.utils.json.PersonForTesting.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Disabled("running this often will cost $")
 class BarInterfaceIntTest {
-  AiCaller aiCaller = new GeminiCaller();
-  BarInterface sut = BarInterface.create(aiCaller, true);
+  BarInterface sut = aiBuilder().isLogging(true)
+    .aiCaller(new GeminiCaller())
+    .createProxy(BarInterface.class);
+
 
   @Test
   void willRunMethodWithPrompt() {

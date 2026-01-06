@@ -5,13 +5,16 @@ import com.tek271.jpop.utils.json.PersonForTesting;
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Test;
 
+import static com.tek271.jpop.AiObjectBuilder.aiBuilder;
 import static com.tek271.jpop.utils.json.PersonForTesting.*;
 import static com.tek271.jpop.utils.json.PersonForTesting.SAM;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BarInterfaceTest {
   BogusCaller aiCaller = new BogusCaller();
-  BarInterface sut = BarInterface.create(aiCaller, false);
+  BarInterface sut = aiBuilder().isLogging(false)
+    .aiCaller(aiCaller)
+    .createProxy(BarInterface.class);
 
   @Test
   void willRunMethodWithPrompt() {

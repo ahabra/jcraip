@@ -1,5 +1,6 @@
 package com.tek271.jpop.app;
 
+import com.tek271.jpop.AiObjectBuilder;
 import com.tek271.jpop.ai.bogus.BogusCaller;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractServiceTest {
   BogusCaller aiCaller = new BogusCaller();
-  AbstractService sut = AbstractService.createService(aiCaller, false);
+  AbstractService sut = AiObjectBuilder.aiBuilder().isLogging(false)
+    .aiCaller(aiCaller)
+    .createProxy(AbstractService.class);
+
 
   @Test
   void multiply_abstract_test() {

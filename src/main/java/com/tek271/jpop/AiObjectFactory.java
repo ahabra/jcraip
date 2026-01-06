@@ -1,10 +1,7 @@
 package com.tek271.jpop;
 
-import com.tek271.jpop.ai.base.AiCaller;
-import com.tek271.jpop.ai.gemini.GeminiCaller;
 import com.tek271.jpop.instrument.Interceptor;
 import com.tek271.jpop.instrument.InterfaceProxy;
-import com.tek271.jpop.prompt.PromptRunnerImpl;
 import com.tek271.jpop.prompt.PromptRunner;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.MethodDelegation;
@@ -17,19 +14,11 @@ import static com.tek271.jpop.utils.reflect.Creator.createDynaInstance;
 import static com.tek271.jpop.utils.reflect.Creator.subclass;
 import static com.tek271.jpop.utils.reflect.ReflectionTools.*;
 
-public class AiObjectFactory {
+class AiObjectFactory {
   private final PromptRunner promptRunner;
 
   public AiObjectFactory(PromptRunner promptRunner) {
     this.promptRunner = promptRunner;
-  }
-
-  public AiObjectFactory(AiCaller aiCaller) {
-    this(new PromptRunnerImpl(aiCaller));
-  }
-
-  public AiObjectFactory() {
-    this(new PromptRunnerImpl(new GeminiCaller()));
   }
 
   /**

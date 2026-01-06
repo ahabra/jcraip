@@ -3,11 +3,15 @@ package com.tek271.jpop.app;
 import com.tek271.jpop.ai.bogus.BogusCaller;
 import org.junit.jupiter.api.Test;
 
+import static com.tek271.jpop.AiObjectBuilder.aiBuilder;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FooServiceTest {
   BogusCaller aiCaller = new BogusCaller();
-  FooService sut = FooService.create(aiCaller, false);
+  FooService sut = aiBuilder().isLogging(false)
+    .aiCaller(aiCaller)
+    .createProxy(FooService.class);
+
 
   @Test
   void sum_returnsCorrectValues() {

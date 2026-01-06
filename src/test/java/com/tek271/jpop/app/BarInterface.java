@@ -1,18 +1,9 @@
 package com.tek271.jpop.app;
 
-import com.tek271.jpop.AiObjectFactory;
-import com.tek271.jpop.ai.base.AiCaller;
 import com.tek271.jpop.prompt.IsJson;
 import com.tek271.jpop.prompt.Prompt;
-import com.tek271.jpop.prompt.PromptRunner;
-import com.tek271.jpop.prompt.PromptRunnerImpl;
 
 public interface BarInterface {
-
-  static BarInterface create(AiCaller aiCaller, boolean isLogging) {
-    PromptRunner promptRunner = new PromptRunnerImpl(aiCaller).logging(isLogging);
-    return new AiObjectFactory(promptRunner).createProxy(BarInterface.class);
-  }
 
   @Prompt("find the maximum")
   int max(int a, int b, int c);
