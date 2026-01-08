@@ -33,7 +33,7 @@ With optimized AI/LLMs, POP could become as widley used as cloud computing or vi
 
 ## Introduction to JPOP
 `JPOP` is a Java library that supports Prompt Oriented Programming (POP) using annotations.
-For example, let's define an interface named `BarInterface`:
+For example, let's define an interface named `Bar`:
 
 ```java
 interface Bar {
