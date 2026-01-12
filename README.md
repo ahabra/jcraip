@@ -135,13 +135,13 @@ import com.tek271.jpop.ai.gemini.GeminiCaller;
 
 
 AiObjectBuilder.aiBuilder()
-  .isLogging(true)     // will log the full prompt and response
+  .isLogging(true)     // Optional. will log the full prompt and response
   .aiCaller(new GeminiCaller())   // Currently Google Gemini is the only supported AI
-  .createProxy(SomeClassWithPromptAnnotatedMethods.class);  // create an object of the given class
+  .createProxy(ClassWithPromptAnnotatedMethods.class);  // create an object of the given class
 ```
 
 ### Arguments and Return Types
-The `Prompt` annotated method's argument and return type ust be one of the following:
+The `Prompt` annotated method's arguments and return types must be one of the following:
 
 1. A primitive type: boolean, int, float, ...
 2. A wrapper type: Boolean, Integer, Float, ...
