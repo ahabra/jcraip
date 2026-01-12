@@ -13,7 +13,7 @@ Some simple examples:
 3. If you have a list of names, and you want to find the ones that end with the letter _z_, you can pass these names
    in a prompt to an AI and ask it to find the ones ending with letter _z_.
 
-You may think of a POP task as a function that expects some input arguments and return some output, the
+You may think of a POP task as a function that expects some input arguments and returns some output, the
 body of the function is a prompt.
 
 ### POP Advantages
@@ -187,7 +187,7 @@ If we pass the same JSON string, the method will return the following JSON:
 ```
 
 ## References
-The oldest references that I found which use the term _Prompt Oriented Programming_ :
+The oldest references that I found which use the term _Prompt Oriented Programming_:
 
 1. 2025.02.23: https://pypi.org/project/POP-guotai/0.1.0/ by Guotai Shen, github user `sgt1796`.
 2. 2025.04.07: https://www.reddit.com/r/ChatGPTCoding/comments/1jtf6zd/declaring_pop_promptoriented_programming_nlp_is/
@@ -203,4 +203,4 @@ The oldest references that I found which use the term _Prompt Oriented Programmi
 4. refactor test services to mock `PromptRunner`. DONE.
 5. cleanup logging. DONE.
 6. try using a local AI
-7. Enhance README
+7. Enhance README. DONE.
