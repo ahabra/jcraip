@@ -187,6 +187,14 @@ If we pass the same JSON string, the method will return the following JSON:
   { "name": "Sam", "age": 42 }
 ```
 
+## References
+The oldest references that I found which use the term _Prompt Oriented Programming_ :
+
+1. 2025.02.23: https://pypi.org/project/POP-guotai/0.1.0/ by user `Guotai Shen`, github user `sgt1796`.
+2. 2025.04.07: https://www.reddit.com/r/ChatGPTCoding/comments/1jtf6zd/declaring_pop_promptoriented_programming_nlp_is/
+   by Elias Andrade, reddit user `elias_devops`
+3. 2025.04.30: https://vibingwithai.substack.com/p/prompt-function-why-natural-language by Abel A. Seyoum,
+   substack user `abelasa`
 
 
 ## TODOs
