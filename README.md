@@ -120,9 +120,73 @@ Bar bar = AiObjectBuilder.aiBuilder()
 System.out.println(bar.max(13, 200, 5));  // will print 200
 ```
 
-
-
 ## Programmer's Reference
+You can use the `Prompt` annotation with any of the following type of methods:
+
+1. In an interface, on any body-less method. You cannot use it with `default` or `static` methods.
+2. In an abstract class, on both `abstract` methods, and implemented non-static methods.
+3. In a regular class, any non-static method.
+
+To create an instance of the class that uses the `Prompt` annotation, you use the `AiObjectBuilder` class:
+
+```java
+import com.tek271.jpop.AiObjectBuilder;
+import com.tek271.jpop.ai.gemini.GeminiCaller;
+
+
+AiObjectBuilder.aiBuilder()
+  .isLogging(true)     // will log the full prompt and response
+  .aiCaller(new GeminiCaller())   // Currently Google Gemini is the only supported AI
+  .createProxy(SomeClassWithPromptAnnotatedMethods.class);  // create an object of the given class
+```
+
+### Arguments and Return Types
+The `Prompt` annotated method's argument and return type ust be one of the following:
+
+1. A primitive type: boolean, int, float, ...
+2. A wrapper type: Boolean, Integer, Float, ...
+3. String
+
+Additionally, a method can have `String` type arguments as JSON strings, or return a JSON string.
+To indicate that an argument or return value is a JSON string, use the `IsJson` annotation.
+
+An example for a method that takes a JSON argument:
+
+```java
+import com.tek271.jpop.prompt.IsJson;
+import com.tek271.jpop.prompt.Prompt;
+
+
+  @Prompt("find the name with highest age")
+  String findNameOfOldest(@IsJson String persons);
+```
+
+In the above example, if we pass the following JSON string:
+
+```json
+[
+  { "name": "Ada", "age": 10 },
+  { "name": "Sam", "age": 42 },
+  { "name": "Sky", "age": 14 }
+]
+```
+The method will return `Sam`.
+
+An example for a method that takes a JSON argument, and return a JSON string:
+
+```java
+  @Prompt("find the person with highest age")
+  @IsJson String findOldestPerson(@IsJson String persons);
+```
+
+_Note how the method's return type is annotated with `IsJson`._
+
+If we pass the same JSON string, the method will return the following JSON:
+
+```json
+  { "name": "Sam", "age": 42 }
+```
+
 
 
 ## TODOs
@@ -132,3 +196,4 @@ System.out.println(bar.max(13, 200, 5));  // will print 200
 4. refactor test services to mock `PromptRunner`. DONE.
 5. cleanup logging. DONE.
 6. try using a local AI
+7. Enhance README
