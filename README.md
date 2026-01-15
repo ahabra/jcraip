@@ -75,7 +75,7 @@ Add the following dependency to your maven's `pom.xml`:
     <dependency>
       <groupId>com.tek271</groupId>
       <artifactId>jpop</artifactId>
-      <version>0.0.1</version>
+      <version>0.0.2</version>
     </dependency>
 ```
 

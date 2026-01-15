@@ -6,7 +6,7 @@
   <groupId>com.tek271</groupId>
   <artifactId>jpop</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>a Java library to use AI tools as code</description>
   <url>https://github.com/ahabra/jpop</url>
@@ -185,12 +185,6 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>33.5.0-jre</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mvel</groupId>
-      <artifactId>mvel2</artifactId>
-      <version>2.5.2.Final</version>
     </dependency>
 
   </dependencies>
