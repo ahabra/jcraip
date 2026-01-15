@@ -1,8 +1,6 @@
 # Java Prompt Oriented Programming (JPOP)
 Started on Fri Nov 28 20:28:18 EST 2025
 
-## Under Construction
-
 ## Prompt Oriented Programming (POP)
 POP is a new term (as of January 2026) which means using AI/LLM prompts to execute programming tasks.
 Some simple examples:
